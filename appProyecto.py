@@ -10,8 +10,13 @@ from pgmpy.estimators import BayesianEstimator
 from pgmpy.models import BayesianNetwork
 from pgmpy.inference import VariableElimination
 from pgmpy.estimators import MaximumLikelihoodEstimator
+
+#Toca poner los datos en una base de datos de AWS
 df = pd.read_csv("datosvf.csv", sep=";")
+
 df.columns =['age', 'sex', 'cpt', 'pressure','chol','sugar','ecg','maxbpm','angina','oldpeak','slope','flourosopy','thal','diagnosis']
+
+
 def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
 
     Sex=9

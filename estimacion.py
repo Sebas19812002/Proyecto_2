@@ -7,9 +7,10 @@ from pgmpy.estimators import BayesianEstimator
 import pandas as pd
 
 # El archivo esta delimitado por ;
-df = pd.read_csv("datosvf.csv", sep=";")
-print(df.head())
-df.columns =['age', 'sex', 'cpt', 'pressure','chol','sugar','ecg','maxbpm','angina','oldpeak','slope','flourosopy','thal','diagnosis']
+
+df = pd.read_csv("Datos_Discretizados.csv")
+print(df.head(5))
+
 
 #Parametrización del modelo
 mod_fit = BayesianNetwork([("sugar","chol"),
@@ -28,8 +29,41 @@ mod_fit = BayesianNetwork([("sugar","chol"),
                                 ("maxbpm","diagnosis")])
 #En caso de querer usar con estimador bayesiano
 mod_fit.fit(data=df , estimator = BayesianEstimator)
+
+print(mod_fit.nodes())
 #Estimador MaximumLikelihoodEstimator
 mod_fit.fit(data = df , estimator = MaximumLikelihoodEstimator)
+
+
+breakpoint()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 inferencia = VariableElimination(mod_fit)
 Ejemplo1 = inferencia.query(['diagnosis'],evidence={"sex":1, "angina":1, "age": 2 })
 print ("Ejemplo 1", Ejemplo1)
