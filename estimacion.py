@@ -29,13 +29,55 @@ mod_fit = BayesianNetwork([("sugar","chol"),
                                 ("maxbpm","diagnosis")])
 #En caso de querer usar con estimador bayesiano
 mod_fit.fit(data=df , estimator = BayesianEstimator)
-
 print(mod_fit.nodes())
+
+from sklearn.model_selection import train_test_split
+
+train_data, test_data = train_test_split(df, test_size=0.2, random_state=42)
+
+mod_fit.fit(data=train_data , estimator = BayesianEstimator)
+
+
+print(test_data.shape[1])
+
+
+
+
+real=test_data.iloc[0]
+
+
+inferencia = VariableElimination(mod_fit)
+###Revisar el orden de la prueba 
+
+Evidencia={"age":0,"sex":0,"cpt":0,"pressure":0,"chol":0,"sugar":0,"ecg":0,"maxbpm":0,"angina":0,"oldpeak":0, "slope":0, "flourosopy":0,"thal":0}
+
+
+print(Evidencia)
+for i in range (0,1):
+    Evidencia["age"]=real[i]
+    Evidencia["sex"]=real[i+1]
+    Evidencia["cpt"]=real[i+2]
+    Evidencia["pressure"]=real[i+3]
+    Evidencia["chol"]=real[i+4]
+    Evidencia["sugar"]=real[i+5]
+    Evidencia["ecg"]=real[i+6]
+    Evidencia["maxbpm"]=real[i+7]
+    Evidencia["angina"]=real[i+8]
+    Evidencia["oldpeak"]=real[i+9]
+    Evidencia["slope"]=real[i+10]
+    Evidencia["flourosopy"]=real[i+11]
+    Evidencia["thal"]=real[i+12]
+
+
+print(real)
+print(Evidencia)
+resultado = inferencia.query(['diagnosis'], evidence=Evidencia).values
+print(resultado)
+
+
 #Estimador MaximumLikelihoodEstimator
-mod_fit.fit(data = df , estimator = MaximumLikelihoodEstimator)
+#mod_fit.fit(data = df , estimator = MaximumLikelihoodEstimator)
 
-
-breakpoint()
 
 
 
