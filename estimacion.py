@@ -1,16 +1,55 @@
 from pgmpy.models import BayesianNetwork
-from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import VariableElimination
 from pgmpy.estimators import MaximumLikelihoodEstimator
-from pgmpy.sampling import BayesianModelSampling
 from pgmpy.estimators import BayesianEstimator
+from sklearn.model_selection import train_test_split
 import pandas as pd
 
-# El archivo esta delimitado por ;
+#Calcular metricas
+def Metricas (test_data, modelo ):
+    filas=test_data.shape[0]
+    inferencia = VariableElimination(modelo)    
+    tabla = pd.DataFrame(columns=['VP', 'VN', 'FP', 'FN'], index=[0])
+    vp=0
+    vn=0
+    fp=0
+    fn=0
+    for j in range(0,filas): 
+        real=test_data.iloc[j]
+        Evidencia={"age":0,"sex":0,"cpt":0,"pressure":0,"chol":0,"sugar":0,"ecg":0,"maxbpm":0,"angina":0,"oldpeak":0, "slope":0, "flourosopy":0,"thal":0}
+        for i in range (0,1):
+            Evidencia["age"]=real[i]
+            Evidencia["sex"]=real[i+1]
+            Evidencia["cpt"]=real[i+2]
+            Evidencia["pressure"]=real[i+3]
+            Evidencia["chol"]=real[i+4]
+            Evidencia["sugar"]=real[i+5]
+            Evidencia["ecg"]=real[i+6]
+            Evidencia["maxbpm"]=real[i+7]
+            Evidencia["angina"]=real[i+8]
+            Evidencia["oldpeak"]=real[i+9]
+            Evidencia["slope"]=real[i+10]
+            Evidencia["flourosopy"]=real[i+11]
+            Evidencia["thal"]=real[i+12]
+        resultado = inferencia.query(['diagnosis'], evidence=Evidencia).values
+        Prediccion=1
+        #Prob de no tener = 0
+        if resultado[0]>=0.5 :
+            Prediccion=0
+        if Prediccion == real[13] and Prediccion==1  :
+            vp+=1
+        elif Prediccion == real[13] and Prediccion==0 :
+            fp+=1
+        elif Prediccion != real[13] and Prediccion==0 and real[13]==1 :
+            fn+=1
+        else:   
+            vn+=1
+    tabla.loc[0] = [vp,vn, fp, fn]    
+    return(tabla)
 
-df = pd.read_csv("Datos_Discretizados.csv")
+
+df= pd.read_csv("Datos_Discretizados.csv")
 print(df.head(5))
-
 
 #Parametrización del modelo
 mod_fit = BayesianNetwork([("sugar","chol"),
@@ -27,90 +66,31 @@ mod_fit = BayesianNetwork([("sugar","chol"),
                                 ("age","maxbpm"),
                                 ("thal","maxbpm"),
                                 ("maxbpm","diagnosis")])
-#En caso de querer usar con estimador bayesiano
-mod_fit.fit(data=df , estimator = BayesianEstimator)
-print(mod_fit.nodes())
 
-from sklearn.model_selection import train_test_split
+
+#De pende del test_size, los datos retantes iran a la estimación del modelo
 
 train_data, test_data = train_test_split(df, test_size=0.2, random_state=42)
 
 mod_fit.fit(data=train_data , estimator = BayesianEstimator)
 
+mod_fit.check_model()
 
-print(test_data.shape[1])
+# Verdaderos y Falsos positivos y negativos
 
-
-
-
-real=test_data.iloc[0]
-
-
-inferencia = VariableElimination(mod_fit)
-###Revisar el orden de la prueba 
-
-Evidencia={"age":0,"sex":0,"cpt":0,"pressure":0,"chol":0,"sugar":0,"ecg":0,"maxbpm":0,"angina":0,"oldpeak":0, "slope":0, "flourosopy":0,"thal":0}
-
-
-print(Evidencia)
-for i in range (0,1):
-    Evidencia["age"]=real[i]
-    Evidencia["sex"]=real[i+1]
-    Evidencia["cpt"]=real[i+2]
-    Evidencia["pressure"]=real[i+3]
-    Evidencia["chol"]=real[i+4]
-    Evidencia["sugar"]=real[i+5]
-    Evidencia["ecg"]=real[i+6]
-    Evidencia["maxbpm"]=real[i+7]
-    Evidencia["angina"]=real[i+8]
-    Evidencia["oldpeak"]=real[i+9]
-    Evidencia["slope"]=real[i+10]
-    Evidencia["flourosopy"]=real[i+11]
-    Evidencia["thal"]=real[i+12]
-
-
-print(real)
-print(Evidencia)
-resultado = inferencia.query(['diagnosis'], evidence=Evidencia).values
-print(resultado)
-
-
-#Estimador MaximumLikelihoodEstimator
-#mod_fit.fit(data = df , estimator = MaximumLikelihoodEstimator)
+Resutados=Metricas(test_data, mod_fit)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#Ejemplo de inferencia
 
 inferencia = VariableElimination(mod_fit)
 Ejemplo1 = inferencia.query(['diagnosis'],evidence={"sex":1, "angina":1, "age": 2 })
-print ("Ejemplo 1", Ejemplo1)
-#Creación de una funcion que reciba los parámetros del dash y los transforme en la categorización de las variables
+print("")
+print ("Ejemplo 1", Ejemplo1.values)
 
+
+# Pasar de los datos del dash al modelo de inferencia
 def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
 
     Sex=9
@@ -240,11 +220,8 @@ def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4
                                 ("age","maxbpm"),
                                 ("thal","maxbpm"),
                                 ("maxbpm","diagnosis")])
-    #En caso de querer usar con estimador bayesiano
-    #mod_fit.fit(data=df , estimator = BayesianEstimator)
-    #estimacion Bayesiana
-    
-    mod_fit.fit(data = df , estimator = MaximumLikelihoodEstimator)
+
+    mod_fit.fit(data=df , estimator = BayesianEstimator)
     inferencia = VariableElimination(mod_fit)
     evidencia = {}
     if Sex !=9: 
@@ -275,9 +252,11 @@ def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4
         evidencia["thal"]= Thal
     resultado = inferencia.query(['diagnosis'],evidence=evidencia)
     return resultado
+
+
 ejemplo = estimar(df, 'Hombre', 'Si', 'Si', "Entre 29 y 39 años", 'Angina típica', 'Entre 94 y 120', 'Deseable', 'No aplica', 'Entre 170 y 210', 'No aplica', '1', 'Normal', 'Normal')
 print("")
-print ("Ejemplo 2", ejemplo)
+print ("Ejemplo 2", ejemplo.values)
 
 
 
