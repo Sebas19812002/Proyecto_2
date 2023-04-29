@@ -13,8 +13,8 @@ from pgmpy.estimators import MaximumLikelihoodEstimator
 from pgmpy.readwrite import BIFReader
 
 #Toca poner los datos en una base de datos de AWS
-df = pd.read_csv("datosvf.csv", sep=";")
-df.columns =['age', 'sex', 'cpt', 'pressure','chol','sugar','ecg','maxbpm','angina','oldpeak','slope','flourosopy','thal','diagnosis']
+df = pd.read_csv("Datos_Discretizados.csv")
+
 
 def estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
 
@@ -181,7 +181,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 datos = pd.read_csv("Datos_Discretizados.csv")
-datos.head()
+
 "1. Exploración de los datos--------------------------------------------------------------"
 #Graficos de pie
 
@@ -957,7 +957,7 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                 html.Tr([
                     html.Td('En ese sentido, tu resultado es:'),
                     html.Td(f"{round(estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)}", style={'text-align': 'center'}),
-                    html.Td(f"{round(estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)}", style={'text-align': 'center'})
+                    html.Td(f"{round(estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[1],3)}", style={'text-align': 'center'})
                 ])])
         
         return (html.Div(html.H5(["A Continuación se mostrará la información ingresada:", 
