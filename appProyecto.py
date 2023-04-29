@@ -152,7 +152,6 @@ def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4
     mod_fit.fit(data=df , estimator = BayesianEstimator)
     #estimacion Bayesiana
     
-    
     inferencia = VariableElimination(mod_fit)
     evidencia = {}
     if Sex !=9: 
@@ -195,73 +194,62 @@ server = app.server
 
 #############################################################################################
 #Creación de las visualizaciones
+
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 datos = pd.read_csv("Datos_Discretizados.csv")
 datos.head()
-"1. Exploración de los datos"
+"1. Exploración de los datos--------------------------------------------------------------"
 #Graficos de pie
+
+
 #Género
 fig, ax = plt.subplots()
 etiquetas = ["Mujeres","Hombres"]
 valores = [datos.loc[(datos['sex'] == 0)].shape[0],(datos["sex"]==1).sum()]
 colores=["#D7F47C", "#81E2DF"]
-ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
+ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%', textprops = {'fontsize': 14})
 plt.title("Sexo de la muestra", fontsize = 18)
 fig.subplots_adjust(top=0.9,bottom=0.01,right=0.9)
 plt.savefig('Exploracion1.png')
+
 
 #Age   
 fig, ax = plt.subplots()
 etiquetas = ["Joven Adulto","Adultos","Adultos Mayores","Tercera Edad"]
 valores = [(datos["age"]==1).sum(),(datos["age"]==2).sum(),(datos["age"]==3).sum(),(datos["age"]==4).sum()]
 colores=["#CFEFFC", "#8AD6F4","#3EAEF4","#81E2DF"]
-ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
+ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%', textprops = {'fontsize': 14})
 plt.title("Edad de la muestra", fontsize = 18)
 fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
 plt.savefig('Exploracion2.png')
 
-#"Trestbps"
-fig, ax = plt.subplots()
-etiquetas = ["Presión arterial normal","Prehipertensión","Hipertensión E1","Hipertensión E2","Crisis Hipertensiva"]
-valores = [(datos["pressure"]==1).sum(),(datos["pressure"]==2).sum(),(datos["pressure"]==3).sum(),(datos["pressure"]==4).sum(),(datos["pressure"]==5).sum()]
-colores=["#D7F47C", "#12B687","#5EC160","#90E0AE","#234F1E"]
-ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
-plt.title("Presión arterial de la muestra", fontsize = 18)
-fig.subplots_adjust(top=0.9,bottom=0.01,left=0.01)
-plt.savefig('Exploracion3.png')
 
 #"Chol"
 fig, ax = plt.subplots()
 etiquetas = ["Deseable","Elevado","Muy Elevado"]
 valores = [(datos["chol"]==1).sum(),(datos["chol"]==2).sum(),(datos["chol"]==3).sum()]
 colores=["#87CEFA", "#81E2DF","#C1E9FC"]
-ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
+ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%', textprops = {'fontsize': 14})
 plt.title("Colesterol sérico de la muestra", fontsize = 18)
 fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
 plt.savefig('Exploracion4.png')
 
+
 #"Thalach"
 fig, ax = plt.subplots()
-etiquetas = ["Reposo","Ej. Aerobico","Ej. Intenso"]
+etiquetas = ["Reposo","Ej Aerobico","Ej Intenso"]
 valores = [(datos["maxbpm"]==1).sum(),(datos["maxbpm"]==2).sum(),(datos["maxbpm"]==3).sum()]
 colores=["#D7F47C", "#12B687","#5EC160"]
-ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
+ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%', textprops = {'fontsize': 14})
 plt.title("Frecuencia cardiaca máxima de la muestra", fontsize = 18)
 fig.subplots_adjust(top=0.9,bottom=0.01,left=0.01)
 plt.savefig('Exploracion5.png')
 
-#"Oldpeak"
-fig, ax = plt.subplots()
-etiquetas = ["Normal","Ligeramente Elevado","Moderadamente Elevado","Altamente Elevado"]
-valores = [(datos["oldpeak"]==1).sum(),(datos["oldpeak"]==2).sum(),(datos["oldpeak"]==3).sum(),(datos["oldpeak"]==4).sum()]
-colores=[ "#8AD6F4","#3EAEF4","#81E2DF","#CFEFFC"]
-ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
-plt.title("Depresión del ST de la muestra", fontsize = 18)
-fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
-plt.savefig('Exploracion6.png')
+
 
 #Genero por edad
 #Mujeres
@@ -272,11 +260,9 @@ M_Tercera = datos.loc[(datos['age'] == 4) & (datos['sex'] == 0)].shape[0]
 
 y = [M_Jovenes, M_Adultos,  M_AdultosMay,M_Tercera]
 x = ['1','2','3','4']
-
 # crear gráfica de barras
 fig, ax = plt.subplots()
 fig.subplots_adjust(top=1)
-
 #ax.bar(x, y, color=["#D7F47C", "#12B687","#5EC160","#90E0AE","#CFEFFC", "#8AD6F4","#3EAEF4","#81E2DF"],label="Adultos")
 ax.bar(x, y, color=["#D7F47C", "#12B687","#5EC160","#90E0AE"],label="Adultos")
 ax.bar(x, y, color=["#12B687", "#12B687","#5EC160","#90E0AE"],label="Adultos Mayores")
@@ -294,12 +280,11 @@ for i, v in enumerate(y):
     plt.text(i, v + 0.8, str(v), color='black', ha='center')
 
 # agregar leyenda
-ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=4)
-ax.set_title('Edad de las mujeres de la muestra')
-#ax.set_xticks(x)
-#ax.set_xticklabels(['                         Enfermos','','','','                         Sanos','','',''])
-fig.subplots_adjust(top=0.9,bottom=0.2)
+ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=2, fontsize= 14)
+ax.set_title('Edad de las mujeres de la muestra', fontsize = 18)
+fig.subplots_adjust(top=0.9,bottom=0.3)
 plt.savefig('Exploracion7.png')
+
 
 
 #Hombres
@@ -332,20 +317,21 @@ for i, v in enumerate(y):
     plt.text(i, v + .8, str(v), color='black', ha='center')
 
 # agregar leyenda
-ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=4)
-ax.set_title('Edad de las mujeres de la muestra')
-#ax.set_xticks(x)
-#ax.set_xticklabels(['                         Enfermos','','','','                         Sanos','','',''])
-fig.subplots_adjust(top=0.9,bottom=0.2)
+ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=2, fontsize= 14)
+ax.set_title('Edad de las mujeres de la muestra', fontsize = 18)
+fig.subplots_adjust(top=0.9,bottom=0.3)
 plt.savefig('Exploracion8.png')
+
+
+
 ###########################################################################
 import seaborn as sns
 Correlacion= datos.corr()
-fig, ax = plt.subplots(figsize=(10,10))
+fig, ax = plt.subplots(figsize=(15,15))
 matriz_redondeada=np.round(Correlacion, decimals=2)
 sns.heatmap(matriz_redondeada, annot=True, cmap='coolwarm', linewidths=1, ax=ax)
+fig.subplots_adjust(top=0.92,bottom=0.1)
 
-# guardar la figura en una imagen
 fig.savefig("tabla_de_correlacion.png")
 
 ###################################################################################################
@@ -407,11 +393,12 @@ x = ['1','2','3','4','5','6','7','8']
 # crear gráfica de barras
 fig, ax = plt.subplots()
 fig.subplots_adjust(top=1)
-
-ax.bar(x, y, color=["#92D050","#97F836","#00B050", "#385723","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Adultos")
-ax.bar(x, y, color=["#00B050","#97F836","#92D050", "#385723","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Adultos Mayores")
-ax.bar(x, y, color=["#385723","#97F836","#92D050","#00B050","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Tercera Edad")
-ax.bar(x, y, color=["#97F836","#92D050","#00B050", "#385723","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Jovenes")
+#"#CFEFFC", "#8AD6F4","#3EAEF4","#81E2DF"
+ax.bar(x, y, color=["#99EEF9", "#8AD6F4","#3EAEF4","#81E2DF","#DBF9FD","#CFEFFC","#B3E0FB","#DAF6F5"],label="Jovenes")
+ax.bar(x, y, color=["#8AD6F4", "#8AD6F4","#3EAEF4","#81E2DF","#DFF4FD","#8BBDF5","#CDE9DC","#D8EACC"],label="Adultos")
+ax.bar(x, y, color=["#3EAEF4", "#8AD6F4","#3EAEF4","#81E2DF","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Adultos Mayores")
+ax.bar(x, y, color=["#81E2DF", "#8AD6F4","#3EAEF4","#81E2DF","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Tercera Edad")
+ax.bar(x, y, color=["#99EEF9", "#8AD6F4","#3EAEF4","#81E2DF","#DBF9FD","#CFEFFC","#B3E0FB","#DAF6F5"])
 
 # quitar los bordes del gráfico y los valores del eje y
 plt.gca().spines['top'].set_visible(False)
@@ -420,15 +407,16 @@ plt.gca().spines['left'].set_visible(False)
 plt.gca().set_yticks([])
 
 for i, v in enumerate(y):
-    plt.text(i, v + 3, str(v), color='black', ha='center')
+    plt.text(i, v + 1, str(v), color='black', ha='center')
 
 # agregar leyenda
 ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=4)
 ax.set_title('Cantidad de personas enfermas y sanas por edad')
 ax.set_xticks(x)
-ax.set_xticklabels(['                         Enfermos','','','','                         Sanos','','',''])
-fig.subplots_adjust(top=0.9,bottom=0.2)
+ax.set_xticklabels(['                                      Enfermos','','','','                                     Sanos','','',''])
+fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
 plt.savefig('Propension2.png')
+
 ########################################################################################################################
 
 
@@ -464,11 +452,6 @@ encoded_image = base64.b64encode(open(Exploracion2, 'rb').read())
 exp2 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
     style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
 
-Exploracion3='Exploracion3.png'
-encoded_image = base64.b64encode(open(Exploracion3, 'rb').read())
-exp3 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
-    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
-
 Exploracion4='Exploracion4.png'
 encoded_image = base64.b64encode(open(Exploracion4, 'rb').read())
 exp4 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
@@ -477,11 +460,6 @@ exp4 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
 Exploracion5='Exploracion5.png'
 encoded_image = base64.b64encode(open(Exploracion5, 'rb').read())
 exp5 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
-    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
-
-Exploracion6='Exploracion6.png'
-encoded_image = base64.b64encode(open(Exploracion6, 'rb').read())
-exp6 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
     style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
 
 Exploracion7='Exploracion7.png'
@@ -498,7 +476,7 @@ exp8 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
 Estadistica1='tabla_de_correlacion.png'
 encoded_image = base64.b64encode(open(Estadistica1, 'rb').read())
 Estad1 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
-    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+    style={'display': 'inline-block', 'margin-right': '10px','width': '90%', 'float': 'left'})
 
 
 #########################################################333######################################
@@ -518,14 +496,12 @@ Prop2 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
 
 
 tab1=dcc.Tab(label='Análisis de la muestra',children=[
-    html.Div('El contenido de esta pesataña hace referencia a.....'),
+    html.Div('En esta pestaña usted encontrará información sobre la distribucón de la muestra de datos'),
     html.Br(),
     html.Div(exp1),
-    html.Div(exp2),
-    html.Div(exp3),
-    html.Div(exp4),
     html.Div(exp5),
-    html.Div(exp6),
+    html.Div(exp4),
+    html.Div(exp2),
     html.Div(exp7),
     html.Div(exp8)
     
