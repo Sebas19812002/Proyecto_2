@@ -52,7 +52,7 @@ print ("Ejemplo 1", Ejemplo1.values)
 
 
 # Pasar de los datos del dash al modelo de inferencia
-def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
+def estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
 
     Sex=9
     if radio1 == 'Hombre':
@@ -165,7 +165,7 @@ def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4
     elif dropdown10 == 'Defecto Fijo':
         Thal="6"
     elif dropdown10 == 'Defecto Reversible':
-        Thal="6"
+        Thal="7"
    
     modelo = BIFReader("Modelo.bif").get_model()
     inferencia = VariableElimination(modelo)
@@ -197,13 +197,13 @@ def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4
         evidencia["oldpeak"]= Oldpeak
     if Thal !=9: 
         evidencia["thal"]= Thal
-    resultado = inferencia.query(['diagnosis'],evidence=evidencia)
+    resultado = inferencia.query(['diagnosis'],evidence=evidencia).values
     return resultado
 
 
-ejemplo = estimar(df, 'Hombre', 'Si', 'Si', "Entre 29 y 39 años", 'Angina típica', 'Entre 94 y 120', 'Deseable', 'No aplica', 'Entre 170 y 210', 'No aplica', '1', 'Normal', 'Normal')
+ejemplo = estimar('Hombre', 'Si', 'Si', "Entre 29 y 39 años", 'Angina típica', 'Entre 94 y 120', 'Deseable', '', 'Entre 170 y 210', 'No aplica', '1', 'Normal', 'Normal')
 print("")
-print ("Ejemplo 2", ejemplo.values)
+print ("Ejemplo 2", ejemplo)
 
 
 

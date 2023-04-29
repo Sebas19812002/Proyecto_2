@@ -130,7 +130,7 @@ def estimar(df,radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4
     elif dropdown10 == 'Defecto Fijo':
         Thal=6
     elif dropdown10 == 'Defecto Reversible':
-        Thal=6
+        Thal=7
    
     mod_fit = BayesianNetwork([("sugar","chol"),
                                 ("sugar","angina"),
