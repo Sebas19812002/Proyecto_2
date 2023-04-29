@@ -6,10 +6,6 @@ from pgmpy.readwrite import BIFReader
 from pgmpy.readwrite import BIFWriter
 import pandas as pd
 
-#Calcular metricas
-
-
-
 df= pd.read_csv("Datos_Discretizados.csv")
 print(df.head(5))
 
