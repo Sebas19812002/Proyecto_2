@@ -54,57 +54,85 @@ nodos=[("diagnosis","ecg")]
 #-----------------------Modelo nuestro----------------------------##
 modelo = BIFReader("Modelo.bif").get_model()
 modelo.check_model()
-print(modelo.nodes())
+print("Nodos y edges\n")
+print(modelo.nodes(),"\n")
+print(modelo.edges(),"\n")
+modelo_etruct=BayesianNetwork(list(modelo.edges()))
 Resultados=Metricas(df2, modelo, "B")
-print(modelo.edges())
-print("")
-print("Resultados del modelo inicial")
-print(Resultados)
-
+print("Resultados del modelo inicial","\n")
+print(Resultados,"\n")
+scoring_method = K2Score(data=df)
+print("K2 Score","\n")
+print(scoring_method.score(modelo_etruct))
+scoring_method = BicScore(data=df)
+print("BIC Score","\n")
+print(scoring_method.score(modelo_etruct))
 #--------------Modelo estimado por PC sin nada nuevo--------------##
 
 
 est = PC(data=df)
 modelo_PC = est.estimate(variant="stable", max_cond_vars=5)
-print(modelo_PC.nodes())
-print(modelo_PC.edges())
 modelo_PC = BayesianNetwork(modelo_PC)
 modelo_PC.fit(data=df, estimator = BayesianEstimator)
 modelo_PC.check_model() 
+print("Nodos y edges\n")
+print(modelo_PC.nodes(),"\n")
+print(modelo_PC.edges(),"\n")
+modelo_etruct=BayesianNetwork(list(modelo_PC.edges()))
 Resultados=Metricas(df2, modelo_PC, "E")
-print("")
-print("Resultados del modelo estimado por restricciones")
-print(Resultados)
-
+print("Resultados del modelo inicial","\n")
+print(Resultados,"\n")
+scoring_method = K2Score(data=df)
+print("K2 Score","\n")
+print(scoring_method.score(modelo_etruct))
+scoring_method = BicScore(data=df)
+print("BIC Score","\n")
+print(scoring_method.score(modelo_etruct))
 
 #-----------sacar modelo por Hillclimb y score K2 ------------#x    
 
 scoring_method = K2Score(data=df)  #Que tanto una variable es influenciada por posibles padres
 esth = HillClimbSearch(data=df)
 modelo_k2 = esth.estimate(scoring_method=scoring_method,max_indegree=4,max_iter=int(1e4)) #max indegree es el numero de padres maximosn max_inter es el numero de pasos a iterar el Hillclimb
-print(modelo_k2.nodes())
-nodos=list(modelo_k2.nodes())
-edges= list(modelo_k2.edges())
-print(scoring_method.score(modelo_k2))
+modelo_k2 = BayesianNetwork(modelo_k2)
+modelo_k2.fit(data=df, estimator = BayesianEstimator)
+modelo_k2.check_model()
+print("Nodos y edges\n")
+print(modelo_k2.nodes(),"\n")
+print(modelo_k2.edges(),"\n")
+modelo_etruct=BayesianNetwork(list(modelo_k2.edges()))
+Resultados=Metricas(df2, modelo_k2, "E")
+print("Resultados del modelo inicial","\n")
+print(Resultados,"\n")
+scoring_method = K2Score(data=df)
+print("K2 Score","\n")
+print(scoring_method.score(modelo_etruct))
+scoring_method = BicScore(data=df)
+print("BIC Score","\n")
+print(scoring_method.score(modelo_etruct))
 
 
-#print(scoring_method.score(estimated_model))
 
 #----------------Modelo Hillclimb con BIC score------------------#
 
 scoring_method = BicScore(data=df)  #Que tanto una variable es influenciada por posibles padres
 esth = HillClimbSearch(data=df)
-estimated_modelh1 = esth.estimate(
-    scoring_method=scoring_method, max_indegree=4, max_iter=int(1e4)
-) #max indegree es el numero de padres maximosn max_inter es el numero de pasos a iterar el Hillclimb
-#print(estimated_modelh1)
-#print(estimated_modelh1.nodes())
-print(estimated_modelh1.edges())
-print(scoring_method.score(estimated_model))
+modelo_BIC = esth.estimate(scoring_method=scoring_method, max_indegree=4, max_iter=int(1e4)) #max indegree es el numero de padres maximosn max_inter es el numero de pasos a iterar el Hillclimb
+modelo_BIC = BayesianNetwork(modelo_BIC)
+modelo_BIC.fit(data=df, estimator = BayesianEstimator)
+modelo_BIC.check_model()
 
-
-
-
-
-
+print("Nodos y edges\n")
+print(modelo_BIC.nodes(),"\n")
+print(modelo_BIC.edges(),"\n")
+modelo_etruct=BayesianNetwork(list(modelo_BIC.edges()))
+Resultados=Metricas(df2, modelo_BIC, "E")
+print("Resultados del modelo inicial","\n")
+print(Resultados,"\n")
+scoring_method = K2Score(data=df)
+print("K2 Score","\n")
+print(scoring_method.score(modelo_etruct))
+scoring_method = BicScore(data=df)
+print("BIC Score","\n")
+print(scoring_method.score(modelo_etruct))
 
