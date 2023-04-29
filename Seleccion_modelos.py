@@ -136,3 +136,23 @@ scoring_method = BicScore(data=df)
 print("BIC Score","\n")
 print(scoring_method.score(modelo_etruct))
 
+#-----------------------Modelo de otro grupo----------------------------##
+modelo = BIFReader("modelo_otro_grupo.bif").get_model()
+modelo.check_model()
+print("Nodos y edges\n")
+print(modelo.nodes(),"\n")
+print(modelo.edges(),"\n")
+modelo_etruct=BayesianNetwork(list(modelo.edges()))
+Resultados=Metricas(df2, modelo, "B")
+print("Resultados del modelo inicial","\n")
+print(Resultados,"\n")
+scoring_method = K2Score(data=df)
+print("K2 Score","\n")
+print(scoring_method.score(modelo_etruct))
+scoring_method = BicScore(data=df)
+print("BIC Score","\n")
+print(scoring_method.score(modelo_etruct))
+
+
+
+
