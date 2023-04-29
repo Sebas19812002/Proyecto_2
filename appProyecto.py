@@ -211,7 +211,7 @@ colores=["#D7F47C", "#81E2DF"]
 ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
 plt.title("Sexo de la muestra", fontsize = 18)
 fig.subplots_adjust(top=0.9,bottom=0.01,right=0.9)
-plt.savefig('Exploracion1')
+plt.savefig('Exploracion1.png')
 
 #Age   
 fig, ax = plt.subplots()
@@ -221,17 +221,17 @@ colores=["#CFEFFC", "#8AD6F4","#3EAEF4","#81E2DF"]
 ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
 plt.title("Edad de la muestra", fontsize = 18)
 fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
-plt.savefig('Exploracion2')
+plt.savefig('Exploracion2.png')
 
 #"Trestbps"
 fig, ax = plt.subplots()
-etiquetas = ["Presión arterial normal","Prehipertensión","Hipertensión etapa 1","Hipertensión etapa 2","Crisis Hipertensiva"]
+etiquetas = ["Presión arterial normal","Prehipertensión","Hipertensión E1","Hipertensión E2","Crisis Hipertensiva"]
 valores = [(datos["pressure"]==1).sum(),(datos["pressure"]==2).sum(),(datos["pressure"]==3).sum(),(datos["pressure"]==4).sum(),(datos["pressure"]==5).sum()]
 colores=["#D7F47C", "#12B687","#5EC160","#90E0AE","#234F1E"]
 ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
 plt.title("Presión arterial de la muestra", fontsize = 18)
-fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
-plt.savefig('Exploracion3')
+fig.subplots_adjust(top=0.9,bottom=0.01,left=0.01)
+plt.savefig('Exploracion3.png')
 
 #"Chol"
 fig, ax = plt.subplots()
@@ -241,17 +241,17 @@ colores=["#87CEFA", "#81E2DF","#C1E9FC"]
 ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
 plt.title("Colesterol sérico de la muestra", fontsize = 18)
 fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
-plt.savefig('Exploracion4')
+plt.savefig('Exploracion4.png')
 
 #"Thalach"
 fig, ax = plt.subplots()
-etiquetas = ["Reposo","Ejercicio Aerobico","Ejercicio Intenso"]
+etiquetas = ["Reposo","Ej. Aerobico","Ej. Intenso"]
 valores = [(datos["maxbpm"]==1).sum(),(datos["maxbpm"]==2).sum(),(datos["maxbpm"]==3).sum()]
 colores=["#D7F47C", "#12B687","#5EC160"]
 ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
 plt.title("Frecuencia cardiaca máxima de la muestra", fontsize = 18)
-fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
-plt.savefig('Exploracion5')
+fig.subplots_adjust(top=0.9,bottom=0.01,left=0.01)
+plt.savefig('Exploracion5.png')
 
 #"Oldpeak"
 fig, ax = plt.subplots()
@@ -261,7 +261,7 @@ colores=[ "#8AD6F4","#3EAEF4","#81E2DF","#CFEFFC"]
 ax.pie(valores, labels = etiquetas ,colors=colores, autopct='%1.1f%%')
 plt.title("Depresión del ST de la muestra", fontsize = 18)
 fig.subplots_adjust(top=0.9,bottom=0.01,left=0.008)
-plt.savefig('Exploracion6')
+plt.savefig('Exploracion6.png')
 
 #Genero por edad
 #Mujeres
@@ -298,7 +298,8 @@ ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=4)
 ax.set_title('Edad de las mujeres de la muestra')
 #ax.set_xticks(x)
 #ax.set_xticklabels(['                         Enfermos','','','','                         Sanos','','',''])
-plt.savefig('Exploracion7')
+fig.subplots_adjust(top=0.9,bottom=0.2)
+plt.savefig('Exploracion7.png')
 
 
 #Hombres
@@ -335,8 +336,105 @@ ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=4)
 ax.set_title('Edad de las mujeres de la muestra')
 #ax.set_xticks(x)
 #ax.set_xticklabels(['                         Enfermos','','','','                         Sanos','','',''])
-plt.savefig('Exploracion8')
+fig.subplots_adjust(top=0.9,bottom=0.2)
+plt.savefig('Exploracion8.png')
 ###########################################################################
+import seaborn as sns
+Correlacion= datos.corr()
+fig, ax = plt.subplots(figsize=(10,10))
+matriz_redondeada=np.round(Correlacion, decimals=2)
+sns.heatmap(matriz_redondeada, annot=True, cmap='coolwarm', linewidths=1, ax=ax)
+
+# guardar la figura en una imagen
+fig.savefig("tabla_de_correlacion.png")
+
+###################################################################################################
+"3. Quienes son más propensos a tener la enfermedad"
+# Diagramas de los Enfermos
+
+"--------------------------PRIMER GRÁFICO: SEXO-------------------------------"
+Mujeres_enfermas = datos.loc[(datos['sex'] == 0) & (datos['diagnosis'] == 1)].shape[0]
+Hombres_enfermos = datos.loc[(datos['sex'] == 1) & (datos['diagnosis'] == 1)].shape[0]
+
+Mujeres_sanas = datos.loc[(datos['sex'] == 0) & (datos['diagnosis'] == 0)].shape[0]
+Hombres_sanos = datos.loc[(datos['sex'] == 1) & (datos['diagnosis'] == 0)].shape[0]
+
+# crear lista con datos y nombres de cada barra
+y = [Hombres_enfermos, Mujeres_enfermas,  Hombres_sanos,Mujeres_sanas]
+x = ['Enfermos', 'Enfermas','Sanos', 'Sanas']
+
+# crear gráfica de barras
+fig, ax = plt.subplots()
+fig.subplots_adjust(top=1)
+ax.bar(x, y, color=["#FC91B1","#5EBDF8","#DEF2FE", "#FEECF2"],label="Mujeres")
+ax.bar(x, y, color=["#5EBDF8","#FC91B1","#DEF2FE", "#FEECF2"],label="Hombres")
+
+# quitar los bordes del gráfico y los valores del eje y
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+plt.gca().set_yticks([])
+
+for i, v in enumerate(y):
+    plt.text(i, v + 3, str(v), color='black', ha='center')
+
+# agregar leyenda
+ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=2)
+ax.set_title('Cantidad de personas enfermas y sanas por sexo')
+ax.set_xticks(x)
+ax.set_xticklabels(['                         Enfermos','','                         Sanos',''])
+
+fig.subplots_adjust(top=0.9,bottom=0.2)
+plt.savefig('Propension1.png')
+
+"--------------------------SEGUNDO GRÁFICO: EDAD-------------------------------"
+Jovenes_enfermas = datos.loc[(datos['age'] == 1) & (datos['diagnosis'] == 1)].shape[0]
+Adultos_enfermos = datos.loc[(datos['age'] == 2) & (datos['diagnosis'] == 1)].shape[0]
+AdultosMay_enfermos = datos.loc[(datos['age'] == 3) & (datos['diagnosis'] == 1)].shape[0]
+Tercera_enfermos = datos.loc[(datos['age'] == 4) & (datos['diagnosis'] == 1)].shape[0]
+
+
+Jovenes_sanos = datos.loc[(datos['age'] == 1) & (datos['diagnosis'] == 0)].shape[0]
+Adultos_sanos = datos.loc[(datos['age'] == 2) & (datos['diagnosis'] == 0)].shape[0]
+AdultosMay_sanos = datos.loc[(datos['age'] == 3) & (datos['diagnosis'] == 0)].shape[0]
+Tercera_sanos = datos.loc[(datos['age'] == 4) & (datos['diagnosis'] == 0)].shape[0]
+
+# crear lista con datos y nombres de cada barra
+y = [Jovenes_enfermas, Adultos_enfermos,  AdultosMay_enfermos,Tercera_enfermos,
+     Jovenes_sanos,Adultos_sanos,AdultosMay_sanos,Tercera_sanos]
+x = ['1','2','3','4','5','6','7','8']
+
+# crear gráfica de barras
+fig, ax = plt.subplots()
+fig.subplots_adjust(top=1)
+
+ax.bar(x, y, color=["#92D050","#97F836","#00B050", "#385723","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Adultos")
+ax.bar(x, y, color=["#00B050","#97F836","#92D050", "#385723","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Adultos Mayores")
+ax.bar(x, y, color=["#385723","#97F836","#92D050","#00B050","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Tercera Edad")
+ax.bar(x, y, color=["#97F836","#92D050","#00B050", "#385723","#E9FEB4","#EEF8E4","#CDE9DC","#D8EACC"],label="Jovenes")
+
+# quitar los bordes del gráfico y los valores del eje y
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+plt.gca().set_yticks([])
+
+for i, v in enumerate(y):
+    plt.text(i, v + 3, str(v), color='black', ha='center')
+
+# agregar leyenda
+ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.1], ncol=4)
+ax.set_title('Cantidad de personas enfermas y sanas por edad')
+ax.set_xticks(x)
+ax.set_xticklabels(['                         Enfermos','','','','                         Sanos','','',''])
+fig.subplots_adjust(top=0.9,bottom=0.2)
+plt.savefig('Propension2.png')
+########################################################################################################################
+
+
+
+
+
 
 
 #Cargar una imagen desde el computador
@@ -352,28 +450,98 @@ fina = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
 
 Edad =["Entre 29 y 39 años","Entre 40 y 54 años","Entre 55 y 64 años","Entre 65 y 79 años"]
 
+
+
+#################################################################################################
+#Imagenes de exploracion
 Exploracion1='Exploracion1.png'
 encoded_image = base64.b64encode(open(Exploracion1, 'rb').read())
 exp1 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
-    style={'display': 'inline-block', 'margin-right': '10px','width': '35%', 'float': 'left'})
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+Exploracion2='Exploracion2.png'
+encoded_image = base64.b64encode(open(Exploracion2, 'rb').read())
+exp2 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+Exploracion3='Exploracion3.png'
+encoded_image = base64.b64encode(open(Exploracion3, 'rb').read())
+exp3 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+Exploracion4='Exploracion4.png'
+encoded_image = base64.b64encode(open(Exploracion4, 'rb').read())
+exp4 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+Exploracion5='Exploracion5.png'
+encoded_image = base64.b64encode(open(Exploracion5, 'rb').read())
+exp5 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+Exploracion6='Exploracion6.png'
+encoded_image = base64.b64encode(open(Exploracion6, 'rb').read())
+exp6 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+Exploracion7='Exploracion7.png'
+encoded_image = base64.b64encode(open(Exploracion7, 'rb').read())
+exp7 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+Exploracion8='Exploracion8.png'
+encoded_image = base64.b64encode(open(Exploracion8, 'rb').read())
+exp8 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+######################################################################################################
+
+Estadistica1='tabla_de_correlacion.png'
+encoded_image = base64.b64encode(open(Estadistica1, 'rb').read())
+Estad1 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+
+#########################################################333######################################
+Propension1='Propension1.png'
+encoded_image = base64.b64encode(open(Propension1, 'rb').read())
+Prop1 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
+
+Propension2='Propension2.png'
+encoded_image = base64.b64encode(open(Propension2, 'rb').read())
+Prop2 = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
+    style={'display': 'inline-block', 'margin-right': '10px','width': '30%', 'float': 'left'})
 
 
 
 
 
 
-tab1=dcc.Tab(label='Exploracion de datos',children=[
+tab1=dcc.Tab(label='Análisis de la muestra',children=[
     html.Div('El contenido de esta pesataña hace referencia a.....'),
     html.Br(),
-    html.Div(exp1)
+    html.Div(exp1),
+    html.Div(exp2),
+    html.Div(exp3),
+    html.Div(exp4),
+    html.Div(exp5),
+    html.Div(exp6),
+    html.Div(exp7),
+    html.Div(exp8)
+    
 ])
 
 tab2=dcc.Tab(label='Propensión a tener la enfermedad',children=[
-    html.Div('El contenido de esta pesataña hace referencia a.....')
+    html.Div('El contenido de esta pesataña hace referencia a.....'),
+    html.Br(),
+    html.Div(Prop1),
+    html.Div(Prop2)
 ])
 
 tab3=dcc.Tab(label='Información estadística',children=[
-    html.Div('El contenido de esta pesataña hace referencia a.....')
+    html.Div('El contenido de esta pesataña hace referencia a.....'),
+    html.Br(),
+    html.Div(Estad1)
 ])
 pestanas = [tab1, tab2, tab3]
 tabs = dcc.Tabs(children=pestanas)
