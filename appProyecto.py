@@ -499,7 +499,7 @@ app.layout = html.Div([
     
 def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
     
-    if n_clicks > 0 and radio1 is None or n_clicks > 0 and dropdown1 == "Seleccione" or n_clicks > 0 and dropdown1 is None:
+    if n_clicks > 0 and (radio1 is None or dropdown1 == "Seleccione" or dropdown1 is None):
         if radio1 is None:
             return html.H5(html.Div([html.Div('Por favor, asegurate de haber ingresado el genero del paciente',style={'color': 'red'})
                                     ]))
