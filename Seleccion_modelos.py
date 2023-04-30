@@ -27,7 +27,9 @@ def Metricas (test_data, modelo, tipo):
                     Evidencia[real.index[i]]=str(real[i])
                 elif tipo =="E":
                     Evidencia[real.index[i]]=real[i]
+        
         resultado = inferencia.query(['diagnosis'], evidence=Evidencia).values
+        
         Prediccion=1
         #Prob de no tener = 0
         if resultado[0]>=0.5 :
@@ -145,21 +147,22 @@ print("BIC Score","\n")
 print(scoring_method.score(modelo_etruct))
 
 #-----------------------Modelo de otro grupo----------------------------##
-#modelo = BIFReader("modelo_otro_grupo.bif").get_model()
-#modelo.check_model()
-#print("Nodos y edges\n")
-#print(modelo.nodes(),"\n")
-#print(modelo.edges(),"\n")
-#modelo_etruct=BayesianNetwork(list(modelo.edges()))
-#Resultados=Metricas(df2, modelo, "B")
-#print("Resultados del modelo inicial","\n")
-#print(Resultados,"\n")
-#scoring_method = K2Score(data=df)
-#print("K2 Score","\n")
-#print(scoring_method.score(modelo_etruct))
-#scoring_method = BicScore(data=df)
-#print("BIC Score","\n")
-#print(scoring_method.score(modelo_etruct))
+modelo_ = BayesianNetwork([("sex", "chol"), ("age", "chol"), ("age", "sugar"),("thal", "pressure"), ("chol", "diagnosis"),("sugar", "pressure"),("pressure", "diagnosis"),("diagnosis", "flourosopy"),("diagnosis", "maxbpm"),("diagnosis", "angina"),("diagnosis", "ecg"),("angina", "cpt"),("cpt", "oldpeak"),( "ecg","oldpeak"),("ecg","slope")])
+modelo_.fit(data=df, estimator = BayesianEstimator)
+modelo_.check_model()
+print("Nodos y edges\n")
+print(modelo_.nodes(),"\n")
+print(modelo_.edges(),"\n")
+modelo_etruct=BayesianNetwork(list(modelo.edges()))
+Resultados=Metricas(df2, modelo_, "E")
+print("Resultados del modelo inicial","\n")
+print(Resultados,"\n")
+scoring_method = K2Score(data=df)
+print("K2 Score","\n")
+print(scoring_method.score(modelo_etruct))
+scoring_method = BicScore(data=df)
+print("BIC Score","\n")
+print(scoring_method.score(modelo_etruct))
 
 
 
