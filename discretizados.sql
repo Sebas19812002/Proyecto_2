@@ -3,7 +3,7 @@ BEGIN;
 CREATE TABLE mytable(
   id          smallint NOT NULL,
   age         smallint NOT NULL,
-  sex         boolean NOT NULL,
+  sex         smallint NOT NULL,
   cpt         smallint NOT NULL,
   pressure    smallint NOT NULL,
   chol        smallint NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE mytable(
   slope       smallint NOT NULL,
   flourosopy  smallint NOT NULL,
   thal        smallint NOT NULL,
-  diagnosis   boolean NOT NULL
+  diagnosis   smallint NOT NULL
 );
 
 -- COPY mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) FROM stdin;
