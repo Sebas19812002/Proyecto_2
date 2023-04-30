@@ -1,326 +1,325 @@
 BEGIN;
 
 CREATE TABLE mytable(
-  id          integer NOT NULL,
+  id          integer NOT NULL PRIMARY KEY,
   age         integer  NOT NULL,
-  sex         BIT  NOT NULL,
+  sex         boolean NOT NULL,
   cpt         integer  NOT NULL,
   pressure    integer  NOT NULL,
   chol        integer  NOT NULL,
-  sugar       BIT  NOT NULL
+  sugar       boolean NOT NULL,
   ecg         integer  NOT NULL,
   maxbpm      integer  NOT NULL,
-  angina      BIT  NOT NULL
+  angina      boolean NOT NULL,
   oldpeak     integer  NOT NULL,
   slope       integer  NOT NULL,
   flourosopy  integer  NOT NULL,
   thal        integer  NOT NULL,
-  diagnosis   BIT  NOT NULL
+  diagnosis   boolean NOT NULL
 );
 
-COPY mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) FROM stdin;
-1   3   1   1   4   2   1   2   2   0   3   3   0   6   0
-2   4   1   4   4   2   0   2   1   1   2   2   3   3   1
-3   4   1   4   2   2   0   2   1   1   3   2   2   7   1
-4   1   1   3   3   2   0   0   3   0   4   3   0   3   0
-5   2   0   2   3   2   0   2   3   0   2   1   0   3   0
-6   3   1   2   2   2   0   0   3   0   1   1   0   3   0
-7   3   0   4   4   2   0   2   2   0   4   3   2   3   1
-8   3   0   4   2   3   0   0   2   1   1   1   0   3   0
-9   3   1   4   3   2   0   2   2   0   2   2   1   7   1
-10  2   1   4   4   2   1   2   2   1   4   3   0   7   1
-11  3   1   4   4   1   0   0   2   0   1   2   0   6   0
-12  3   0   2   4   2   0   2   2   0   2   2   0   3   0
-13  3   1   3   3   2   1   2   2   1   1   2   1   6   1
-14  2   1   2   2   2   0   0   3   0   1   1   0   7   0
-15  2   1   3   4   1   1   0   2   0   1   1   0   7   0
-16  3   1   3   4   1   0   0   3   0   2   1   0   3   0
-17  2   1   2   1   2   0   0   2   0   2   3   0   7   1
-18  2   1   4   4   2   0   0   2   0   2   1   0   3   0
-19  2   0   3   3   2   0   0   1   0   1   1   0   3   0
-20  2   1   2   3   2   0   0   3   0   1   1   0   3   0
-21  3   1   1   1   2   0   2   2   1   2   2   0   3   0
-22  3   0   1   4   2   1   2   2   0   2   1   0   3   0
-23  3   1   2   2   2   0   2   2   0   2   2   0   3   1
-24  3   1   3   3   2   0   2   3   0   4   1   2   7   1
-25  3   1   4   3   2   0   2   1   1   3   2   2   7   1
-26  2   0   3   2   2   0   0   2   0   2   2   0   3   0
-27  3   0   3   2   3   0   0   3   0   1   1   0   3   0
-28  4   0   1   4   2   0   0   1   0   3   3   0   3   0
-29  2   1   4   4   2   0   0   3   0   2   1   0   3   0
-30  2   1   4   1   1   0   2   1   1   3   2   0   7   1
-31  4   0   1   4   2   0   0   2   0   2   1   2   3   0
-32  3   1   4   1   2   1   0   2   1   2   1   2   7   1
-33  3   1   3   4   3   0   0   2   0   1   1   0   3   1
-34  3   1   4   3   2   0   0   2   0   1   2   0   7   0
-35  2   1   3   3   2   0   0   3   1   1   1   0   3   0
-36  2   1   4   4   2   0   0   3   0   1   1   0   3   0
-37  2   1   4   2   1   0   2   1   1   3   2   0   7   1
-38  3   1   4   4   2   0   2   1   1   1   2   1   6   1
-39  3   1   4   3   3   0   0   1   1   2   2   1   7   1
-40  3   1   3   4   2   1   0   1   1   2   2   0   3   0
-41  4   0   4   4   2   0   2   1   0   2   2   3   7   1
-42  2   1   1   4   1   0   0   3   1   2   1   0   7   0
-43  4   0   2   4   3   0   0   2   0   1   1   2   3   0
-44  3   1   3   4   2   1   0   2   0   2   1   0   3   0
-45  3   0   4   3   3   0   2   2   0   1   1   0   3   1
-46  3   1   3   1   2   0   2   2   0   3   2   1   7   1
-47  2   1   3   1   1   0   0   1   0   1   1   0   3   0
-48  2   1   4   4   2   0   2   1   0   3   2   0   7   1
-49  4   0   3   4   3   1   2   2   0   1   1   1   3   0
-50  2   1   3   3   1   1   2   2   0   2   3   0   3   0
-51  2   0   2   1   1   0   0   2   0   1   1   1   3   0
-52  4   1   4   2   1   0   0   2   0   1   1   0   7   0
-53  2   1   4   1   2   0   2   2   0   1   1   1   3   1
-54  2   1   2   3   2   0   2   3   0   1   1   0   3   0
-55  3   1   4   3   2   0   0   2   1   2   1   1   7   1
-56  2   1   4   2   2   0   2   1   1   3   2   1   7   1
-57  2   1   3   4   2   0   0   2   0   1   2   1   7   1
-58  2   1   4   1   1   0   2   2   0   1   1   0   7   1
-59  2   1   3   2   2   0   2   2   0   1   3   1   3   0
-60  2   1   1   2   2   0   2   1   1   2   1   1   3   0
-61  2   0   4   3   3   0   0   2   1   2   2   0   7   1
-62  2   0   3   4   1   0   2   2   1   2   3   0   3   0
-63  3   1   4   2   2   0   2   1   1   3   2   3   7   1
-64  2   0   3   3   3   1   0   3   0   1   1   0   3   0
-65  2   1   4   2   1   0   0   1   0   2   2   1   7   1
-66  3   1   4   4   2   0   2   2   1   3   2   2   7   1
-67  3   1   3   4   1   0   2   2   0   3   2   0   3   1
-68  2   1   3   4   2   0   2   2   0   2   1   0   7   0
-69  3   1   4   4   3   0   2   2   1   4   3   0   7   1
-70  2   1   3   4   2   0   0   2   0   4   2   0   3   1
-71  4   0   3   4   2   0   0   2   0   1   1   0   3   0
-72  4   1   4   2   2   1   0   2   0   1   2   2   7   1
-73  3   1   4   2   2   0   0   1   1   2   2   2   7   1
-74  4   1   4   1   2   0   2   2   0   1   1   2   6   1
-75  2   1   4   1   1   0   2   3   0   1   1   1   3   1
-76  4   0   3   4   3   0   2   2   0   1   1   0   3   0
-77  3   1   4   2   2   0   2   2   1   3   2   1   7   1
-78  2   0   3   4   3   0   2   2   0   2   1   1   3   0
-79  2   1   2   3   2   0   2   3   0   1   2   0   3   0
-80  3   1   4   4   2   0   2   1   1   1   1   0   7   1
-81  2   1   4   1   2   0   2   2   1   3   2   0   3   0
-82  2   0   4   3   2   0   2   2   0   1   2   0   3   0
-83  1   1   3   4   3   0   2   3   0   1   1   0   3   0
-84  4   1   3   4   2   1   2   2   1   2   2   0   7   1
-85  2   1   2   2   3   0   0   3   0   1   1   0   3   0
-86  2   1   3   4   2   0   2   3   0   1   1   0   3   0
-87  2   1   3   3   2   0   2   2   0   1   1   0   3   0
-88  2   0   4   3   2   0   2   2   0   1   1   0   3   0
-89  2   0   3   3   2   0   2   2   0   1   1   0   3   0
-90  4   1   4   2   3   0   2   2   0   1   2   0   3   0
-91  3   0   4   4   1   0   2   2   0   4   3   3   7   1
-92  3   1   3   3   2   0   0   2   0   2   2   3   7   0
-93  2   0   3   1   1   0   0   3   0   1   2   0   3   0
-94  3   0   3   3   2   0   2   3   0   1   1   0   3   0
-95  2   1   4   2   2   0   0   2   1   1   1   1   7   1
-96  3   1   4   1   2   0   2   2   1   2   2   1   7   1
-97  3   0   4   4   2   0   2   2   0   3   2   2   7   1
-98  2   1   2   3   2   0   0   2   0   1   1   1   3   0
-99  2   1   4   2   2   0   2   3   0   1   1   0   3   0
-100 2   1   4   1   2   0   2   3   0   1   1   0   3   0
-101 1   1   1   1   1   0   2   3   0   1   1   0   3   0
-102 3   0   4   2   3   0   2   2   0   1   1   1   3   0
-103 4   0   3   1   2   1   2   1   0   1   1   1   3   0
-104 2   1   3   2   1   0   0   1   0   3   2   3   7   1
-105 2   1   2   1   3   0   0   2   0   1   1   0   7   0
-106 3   1   4   4   1   0   0   2   1   1   1   1   7   1
-107 3   1   3   2   2   0   2   2   0   1   2   1   7   1
-108 3   1   4   2   2   0   0   2   1   4   2   1   7   1
-109 1   1   4   1   2   0   0   2   0   2   2   0   7   1
-110 3   0   4   4   3   0   2   2   1   2   2   0   7   1
-111 3   1   4   2   2   1   2   2   1   2   2   1   3   1
-112 2   1   1   1   1   0   2   3   0   1   2   0   6   0
-113 2   0   4   3   3   1   2   1   1   3   2   0   7   1
-114 3   0   3   3   2   0   0   1   0   2   2   1   7   1
-115 2   1   2   3   2   0   0   1   0   1   2   0   6   0
-116 3   1   3   4   2   1   2   2   0   1   1   0   3   0
-117 1   0   4   3   1   0   0   3   0   2   1   0   3   0
-118 3   1   4   3   3   1   2   1   1   2   1   3   7   1
-119 4   1   4   3   2   0   2   1   0   3   2   1   7   1
-120 2   1   4   3   2   1   2   2   1   1   1   2   7   1
-121 3   0   4   4   3   0   2   2   0   4   2   3   7   1
-122 2   1   3   1   2   0   0   2   1   2   2   0   3   0
-123 3   1   4   4   2   0   0   1   1   4   3   0   7   1
-124 4   1   1   3   2   1   2   3   0   2   2   1   3   1
-125 2   0   2   3   2   0   2   3   0   1   2   0   3   0
-126 3   0   4   5   2   1   2   1   1   4   3   2   7   1
-127 2   1   4   1   2   0   0   1   1   3   2   1   7   1
-128 2   1   2   2   2   0   0   3   0   1   1   0   3   0
-129 3   0   4   2   2   0   0   2   0   1   1   0   3   0
-130 2   1   3   2   2   0   2   2   0   1   2   0   7   0
-131 2   1   3   1   2   0   0   2   1   1   1   1   7   0
-132 1   1   2   3   2   0   2   3   0   1   1   0   3   0
-133 2   1   4   4   2   0   2   3   1   1   1   0   3   0
-134 2   0   3   2   2   0   0   2   0   1   2   0   3   0
-135 3   0   2   3   2   0   2   2   0   2   2   0   3   0
-136 4   1   4   4   1   0   0   1   1   3   3   0   7   1
-137 3   1   2   2   2   0   2   1   0   2   2   1   7   1
-138 1   1   4   2   1   0   0   1   1   2   2   0   7   1
-139 2   1   3   2   2   1   2   2   0   3   2   0   3   0
-140 3   1   2   4   2   0   0   2   1   1   1   0   3   0
-141 3   1   1   4   2   0   2   2   0   1   2   0   7   1
-142 2   1   2   2   2   1   0   3   0   1   1   0   3   0
-143 3   1   3   2   3   0   0   1   1   2   2   0   7   1
-144 3   1   3   1   2   0   2   2   1   1   2   0   7   0
-145 2   1   3   1   2   0   0   2   0   1   1   0   3   1
-146 3   1   4   4   2   1   2   1   0   2   2   3   7   1
-147 2   1   3   1   2   0   0   3   0   1   1   0   3   0
-148 2   1   2   2   3   0   2   3   0   1   1   0   3   0
-149 3   0   3   1   3   0   0   2   0   1   1   1   3   0
-150 2   1   1   4   2   1   0   3   0   2   2   0   7   0
-151 2   0   4   1   2   0   2   1   0   1   2   0   3   0
-152 4   0   3   1   3   0   2   2   0   2   2   0   7   0
-153 3   1   4   4   2   0   2   2   1   1   2   1   7   1
-154 3   1   4   2   2   0   2   1   1   3   3   1   3   1
-155 4   1   4   3   3   0   2   1   0   3   2   3   3   1
-156 2   1   4   4   2   0   0   3   1   2   1   0   7   1
-157 3   1   4   2   2   0   2   3   0   1   1   2   7   1
-158 3   1   4   4   2   0   2   3   0   2   2   2   7   1
-159 4   1   3   1   2   0   0   2   0   2   1   1   7   0
-160 2   1   2   1   1   1   0   2   0   1   1   0   7   0
-161 4   1   4   2   3   0   2   2   1   1   1   3   3   1
-162 2   0   3   1   2   0   0   2   0   2   2   0   3   0
-163 3   0   4   1   2   0   2   1   0   2   2   0   3   0
-164 2   1   3   2   2   1   0   3   0   1   1   2   3   0
-165 3   1   4   3   2   0   0   2   1   1   1   0   7   0
-166 2   0   2   3   2   1   2   2   1   1   1   1   3   0
-167 1   1   4   2   2   0   2   2   1   1   1   0   7   1
-168 2   0   2   1   1   0   0   1   0   1   2   0   3   0
-169 4   1   3   4   2   0   0   1   1   3   2   1   7   1
-170 2   1   4   4   2   0   2   1   1   1   1   0   7   0
-171 3   0   4   4   2   0   0   2   1   1   2   0   3   1
-172 3   0   4   4   3   0   2   2   0   2   2   0   3   0
-173 3   1   4   4   2   0   2   1   0   3   2   2   6   1
-174 3   1   4   4   2   0   0   1   1   2   2   1   7   1
-175 2   1   4   1   2   1   0   2   0   1   1   3   7   0
-176 3   1   4   3   1   0   2   1   1   3   2   1   6   1
-177 2   1   3   3   3   0   0   2   0   2   1   1   3   0
-178 2   1   3   3   2   1   2   3   0   1   1   3   3   0
-179 2   1   4   2   2   0   2   2   0   1   2   0   7   1
-180 3   0   4   3   3   0   2   2   1   2   2   2   7   1
-181 2   1   1   4   2   0   2   3   0   1   1   2   3   0
-182 3   1   1   4   2   0   2   2   0   4   3   0   7   0
-183 3   0   4   4   3   0   2   2   0   1   1   0   3   1
-184 3   0   2   4   1   0   0   3   0   1   1   2   3   0
-185 2   1   3   2   2   1   0   3   0   1   3   0   7   0
-186 4   1   2   4   2   0   0   1   1   1   2   3   6   1
-187 2   1   2   5   2   0   2   3   0   1   1   1   7   1
-188 4   1   3   4   2   0   2   2   0   3   2   3   7   1
-189 2   1   3   2   1   0   0   2   0   1   1   0   3   0
-190 2   1   4   4   2   0   0   1   1   4   2   3   7   1
-191 3   0   4   3   2   1   0   1   0   2   2   3   3   1
-192 4   0   3   2   2   0   2   1   0   2   2   0   3   0
-193 4   1   4   1   2   0   2   1   1   1   2   2   3   1
-194 4   1   1   4   2   1   2   1   0   1   2   1   3   0
-195 2   0   4   3   2   0   2   2   1   1   2   0   3   0
-196 2   0   2   2   2   0   0   2   0   2   1   0   3   0
-197 3   1   1   4   2   0   2   1   0   1   1   0   3   1
-198 2   0   4   1   2   0   2   2   0   1   1   0   3   0
-199 3   0   4   4   3   0   0   2   1   1   1   0   3   0
-200 3   1   3   4   1   1   0   3   0   1   1   1   7   0
-201 3   0   3   4   3   0   0   1   0   1   1   0   7   0
-202 2   1   4   1   2   0   0   2   0   1   1   0   7   0
-203 2   1   4   4   3   0   2   2   1   1   2   3   7   1
-204 3   1   4   2   2   0   2   1   1   3   2   2   7   1
-205 2   1   4   4   2   0   2   1   1   1   2   0   7   1
-206 3   1   2   3   2   0   0   2   0   1   1   0   3   0
-207 3   0   4   4   2   0   0   2   1   2   2   0   3   1
-208 1   0   3   2   2   0   0   3   0   1   1   0   3   0
-209 1   1   1   2   2   0   0   3   1   4   2   0   7   1
-210 2   1   3   3   2   0   2   2   0   3   2   0   3   0
-211 4   0   4   4   2   1   0   2   1   2   2   2   7   1
-212 2   1   4   1   2   0   0   2   0   1   1   1   3   1
-213 3   1   1   2   1   0   2   2   0   2   2   0   7   0
-214 2   0   2   1   2   0   0   3   0   1   1   0   3   0
-215 2   0   4   3   2   0   2   2   1   1   2   0   3   0
-216 3   0   4   3   3   0   0   1   0   3   2   2   3   0
-217 3   1   4   3   2   0   2   3   0   1   1   0   3   0
-218 2   0   3   1   2   0   2   3   1   1   1   0   3   0
-219 2   0   3   1   2   0   2   2   0   1   1   0   3   0
-220 1   0   3   1   1   0   0   3   0   1   1   0   3   0
-221 2   1   4   2   2   0   0   1   1   3   2   2   7   1
-222 3   0   4   1   2   0   0   2   1   2   2   2   3   1
-223 1   0   2   1   2   0   0   3   0   1   1   0   3   0
-224 2   1   4   1   2   0   0   2   0   1   1   0   3   0
-225 4   0   3   4   2   0   0   3   0   1   1   1   3   0
-226 2   1   4   1   2   0   2   1   1   1   2   1   3   1
-227 4   1   4   1   2   0   2   1   1   1   1   1   3   1
-228 2   0   3   3   1   0   2   2   0   1   2   0   3   0
-229 3   0   4   4   3   0   1   1   1   4   2   0   3   1
-230 2   1   3   1   1   0   2   1   0   1   1   3   3   1
-231 4   0   2   2   2   0   2   1   1   1   1   1   3   0
-232 2   0   3   4   2   0   0   2   0   1   1   1   3   0
-233 2   1   4   2   2   0   2   1   1   4   2   2   3   1
-234 3   1   4   3   2   1   2   1   1   2   3   0   7   1
-235 2   1   4   2   2   0   2   2   0   1   1   0   7   1
-236 2   0   2   3   2   0   0   2   0   1   2   0   3   0
-237 2   1   2   2   2   0   0   2   0   1   1   0   3   0
-238 2   1   2   1   2   0   0   2   0   1   1   0   3   0
-239 2   0   2   2   3   0   0   2   0   1   1   0   3   0
-240 2   0   4   3   2   0   0   2   0   1   1   0   3   0
-241 3   1   1   3   2   0   0   2   0   3   2   2   3   1
-242 3   0   3   2   1   1   0   1   0   1   1   0   3   0
-243 4   1   4   2   2   0   0   1   0   2   2   0   3   1
-244 3   1   4   1   2   0   0   2   0   1   1   1   7   1
-245 2   1   4   1   2   0   2   1   1   2   2   1   3   1
-246 2   1   4   2   2   0   0   2   0   2   1   2   7   1
-247 3   1   2   2   2   1   2   2   0   1   1   0   3   0
-248 3   1   4   1   2   0   0   1   1   2   2   0   6   0
-249 3   1   4   4   2   0   0   1   0   3   2   1   7   1
-250 3   1   4   2   2   0   0   1   1   1   2   1   7   0
-251 2   0   3   2   2   0   2   2   0   1   1   0   3   0
-252 2   1   4   1   3   0   0   3   0   2   2   0   3   0
-253 2   0   3   2   2   0   0   3   0   1   2   0   3   0
-254 4   0   4   1   2   0   0   2   0   1   1   2   3   0
-255 4   0   3   4   1   0   1   1   0   2   2   0   3   0
-256 4   1   2   4   2   0   2   2   0   1   1   0   3   0
-257 3   1   2   2   2   0   0   2   0   1   1   0   7   1
-258 2   0   3   1   2   0   0   2   0   1   2   1   3   0
-259 3   0   2   3   3   1   2   2   0   1   1   2   3   1
-260 3   0   1   4   2   0   0   3   0   1   1   0   3   0
-261 2   1   3   2   2   0   0   2   0   1   1   0   3   0
-262 3   1   4   3   1   0   2   1   1   4   2   1   3   1
-263 2   1   4   3   3   0   0   1   1   2   2   0   6   1
-264 3   1   3   2   2   1   0   1   0   3   2   1   6   1
-265 2   1   4   4   2   0   0   3   0   1   1   0   7   1
-266 2   1   3   3   1   0   0   2   0   1   1   0   3   0
-267 3   1   4   4   2   0   2   1   1   2   1   1   7   1
-268 4   1   4   4   2   0   2   1   0   3   1   0   6   0
-269 2   1   4   4   3   0   0   1   1   2   2   2   7   1
-270 4   0   4   1   1   0   0   1   0   2   2   0   3   0
-271 3   1   1   3   2   0   0   2   0   1   1   2   3   1
-272 3   1   1   4   2   0   2   2   0   1   2   0   7   0
-273 4   0   3   4   2   0   2   2   0   1   2   1   3   0
-274 1   0   3   3   2   0   0   2   0   1   2   0   3   0
-275 3   1   2   4   2   0   2   2   0   1   1   1   3   1
-276 3   0   4   3   1   0   0   1   0   1   2   0   3   0
-277 3   1   4   1   3   0   0   2   1   3   2   1   7   1
-278 2   1   3   3   2   0   0   3   0   1   1   0   3   0
-279 3   0   4   2   2   0   1   1   1   3   2   1   7   1
-280 1   1   2   2   1   0   0   3   0   1   1   0   3   0
-281 3   1   4   4   2   0   0   2   0   1   1   1   7   1
-282 3   1   4   1   3   0   1   2   0   4   3   3   6   1
-283 3   0   4   4   2   1   2   2   1   3   2   2   6   1
-284 3   1   2   3   2   0   2   2   0   1   1   0   7   0
-285 3   1   2   2   2   0   0   2   0   1   3   0   3   0
-286 4   1   3   4   2   0   2   2   0   1   2   0   7   1
-287 3   0   2   3   3   0   0   2   0   2   1   0   3   0
-288 2   1   4   2   1   0   0   2   1   3   3   0   6   1
-289 3   1   4   4   1   0   2   2   1   4   1   2   7   1
-290 3   0   4   2   1   0   0   1   1   1   2   0   3   1
-291 2   1   2   2   1   0   0   3   0   1   1   0   3   0
-292 3   1   4   4   1   1   2   1   0   2   2   2   6   1
-293 3   0   4   4   2   0   0   1   1   1   2   0   7   1
-294 2   1   1   1   2   0   0   1   0   2   2   0   7   1
-295 4   1   4   4   1   1   0   2   0   4   2   2   7   1
-296 3   1   4   3   1   0   0   1   1   2   2   1   7   1
-297 3   0   2   3   2   0   2   3   0   1   2   1   3   1
-\.
+-- COPY mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) FROM stdin;
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (1,3,1,1,4,2,1,2,2,0,3,3,0,6,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (2,4,1,4,4,2,0,2,1,1,2,2,3,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (3,4,1,4,2,2,0,2,1,1,3,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (4,1,1,3,3,2,0,0,3,0,4,3,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (5,2,0,2,3,2,0,2,3,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (6,3,1,2,2,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (7,3,0,4,4,2,0,2,2,0,4,3,2,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (8,3,0,4,2,3,0,0,2,1,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (9,3,1,4,3,2,0,2,2,0,2,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (10,2,1,4,4,2,1,2,2,1,4,3,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (11,3,1,4,4,1,0,0,2,0,1,2,0,6,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (12,3,0,2,4,2,0,2,2,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (13,3,1,3,3,2,1,2,2,1,1,2,1,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (14,2,1,2,2,2,0,0,3,0,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (15,2,1,3,4,1,1,0,2,0,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (16,3,1,3,4,1,0,0,3,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (17,2,1,2,1,2,0,0,2,0,2,3,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (18,2,1,4,4,2,0,0,2,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (19,2,0,3,3,2,0,0,1,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (20,2,1,2,3,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (21,3,1,1,1,2,0,2,2,1,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (22,3,0,1,4,2,1,2,2,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (23,3,1,2,2,2,0,2,2,0,2,2,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (24,3,1,3,3,2,0,2,3,0,4,1,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (25,3,1,4,3,2,0,2,1,1,3,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (26,2,0,3,2,2,0,0,2,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (27,3,0,3,2,3,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (28,4,0,1,4,2,0,0,1,0,3,3,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (29,2,1,4,4,2,0,0,3,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (30,2,1,4,1,1,0,2,1,1,3,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (31,4,0,1,4,2,0,0,2,0,2,1,2,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (32,3,1,4,1,2,1,0,2,1,2,1,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (33,3,1,3,4,3,0,0,2,0,1,1,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (34,3,1,4,3,2,0,0,2,0,1,2,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (35,2,1,3,3,2,0,0,3,1,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (36,2,1,4,4,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (37,2,1,4,2,1,0,2,1,1,3,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (38,3,1,4,4,2,0,2,1,1,1,2,1,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (39,3,1,4,3,3,0,0,1,1,2,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (40,3,1,3,4,2,1,0,1,1,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (41,4,0,4,4,2,0,2,1,0,2,2,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (42,2,1,1,4,1,0,0,3,1,2,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (43,4,0,2,4,3,0,0,2,0,1,1,2,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (44,3,1,3,4,2,1,0,2,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (45,3,0,4,3,3,0,2,2,0,1,1,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (46,3,1,3,1,2,0,2,2,0,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (47,2,1,3,1,1,0,0,1,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (48,2,1,4,4,2,0,2,1,0,3,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (49,4,0,3,4,3,1,2,2,0,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (50,2,1,3,3,1,1,2,2,0,2,3,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (51,2,0,2,1,1,0,0,2,0,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (52,4,1,4,2,1,0,0,2,0,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (53,2,1,4,1,2,0,2,2,0,1,1,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (54,2,1,2,3,2,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (55,3,1,4,3,2,0,0,2,1,2,1,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (56,2,1,4,2,2,0,2,1,1,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (57,2,1,3,4,2,0,0,2,0,1,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (58,2,1,4,1,1,0,2,2,0,1,1,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (59,2,1,3,2,2,0,2,2,0,1,3,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (60,2,1,1,2,2,0,2,1,1,2,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (61,2,0,4,3,3,0,0,2,1,2,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (62,2,0,3,4,1,0,2,2,1,2,3,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (63,3,1,4,2,2,0,2,1,1,3,2,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (64,2,0,3,3,3,1,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (65,2,1,4,2,1,0,0,1,0,2,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (66,3,1,4,4,2,0,2,2,1,3,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (67,3,1,3,4,1,0,2,2,0,3,2,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (68,2,1,3,4,2,0,2,2,0,2,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (69,3,1,4,4,3,0,2,2,1,4,3,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (70,2,1,3,4,2,0,0,2,0,4,2,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (71,4,0,3,4,2,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (72,4,1,4,2,2,1,0,2,0,1,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (73,3,1,4,2,2,0,0,1,1,2,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (74,4,1,4,1,2,0,2,2,0,1,1,2,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (75,2,1,4,1,1,0,2,3,0,1,1,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (76,4,0,3,4,3,0,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (77,3,1,4,2,2,0,2,2,1,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (78,2,0,3,4,3,0,2,2,0,2,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (79,2,1,2,3,2,0,2,3,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (80,3,1,4,4,2,0,2,1,1,1,1,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (81,2,1,4,1,2,0,2,2,1,3,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (82,2,0,4,3,2,0,2,2,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (83,1,1,3,4,3,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (84,4,1,3,4,2,1,2,2,1,2,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (85,2,1,2,2,3,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (86,2,1,3,4,2,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (87,2,1,3,3,2,0,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (88,2,0,4,3,2,0,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (89,2,0,3,3,2,0,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (90,4,1,4,2,3,0,2,2,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (91,3,0,4,4,1,0,2,2,0,4,3,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (92,3,1,3,3,2,0,0,2,0,2,2,3,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (93,2,0,3,1,1,0,0,3,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (94,3,0,3,3,2,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (95,2,1,4,2,2,0,0,2,1,1,1,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (96,3,1,4,1,2,0,2,2,1,2,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (97,3,0,4,4,2,0,2,2,0,3,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (98,2,1,2,3,2,0,0,2,0,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (99,2,1,4,2,2,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (100,2,1,4,1,2,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (101,1,1,1,1,1,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (102,3,0,4,2,3,0,2,2,0,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (103,4,0,3,1,2,1,2,1,0,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (104,2,1,3,2,1,0,0,1,0,3,2,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (105,2,1,2,1,3,0,0,2,0,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (106,3,1,4,4,1,0,0,2,1,1,1,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (107,3,1,3,2,2,0,2,2,0,1,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (108,3,1,4,2,2,0,0,2,1,4,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (109,1,1,4,1,2,0,0,2,0,2,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (110,3,0,4,4,3,0,2,2,1,2,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (111,3,1,4,2,2,1,2,2,1,2,2,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (112,2,1,1,1,1,0,2,3,0,1,2,0,6,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (113,2,0,4,3,3,1,2,1,1,3,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (114,3,0,3,3,2,0,0,1,0,2,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (115,2,1,2,3,2,0,0,1,0,1,2,0,6,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (116,3,1,3,4,2,1,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (117,1,0,4,3,1,0,0,3,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (118,3,1,4,3,3,1,2,1,1,2,1,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (119,4,1,4,3,2,0,2,1,0,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (120,2,1,4,3,2,1,2,2,1,1,1,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (121,3,0,4,4,3,0,2,2,0,4,2,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (122,2,1,3,1,2,0,0,2,1,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (123,3,1,4,4,2,0,0,1,1,4,3,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (124,4,1,1,3,2,1,2,3,0,2,2,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (125,2,0,2,3,2,0,2,3,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (126,3,0,4,5,2,1,2,1,1,4,3,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (127,2,1,4,1,2,0,0,1,1,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (128,2,1,2,2,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (129,3,0,4,2,2,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (130,2,1,3,2,2,0,2,2,0,1,2,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (131,2,1,3,1,2,0,0,2,1,1,1,1,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (132,1,1,2,3,2,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (133,2,1,4,4,2,0,2,3,1,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (134,2,0,3,2,2,0,0,2,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (135,3,0,2,3,2,0,2,2,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (136,4,1,4,4,1,0,0,1,1,3,3,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (137,3,1,2,2,2,0,2,1,0,2,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (138,1,1,4,2,1,0,0,1,1,2,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (139,2,1,3,2,2,1,2,2,0,3,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (140,3,1,2,4,2,0,0,2,1,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (141,3,1,1,4,2,0,2,2,0,1,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (142,2,1,2,2,2,1,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (143,3,1,3,2,3,0,0,1,1,2,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (144,3,1,3,1,2,0,2,2,1,1,2,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (145,2,1,3,1,2,0,0,2,0,1,1,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (146,3,1,4,4,2,1,2,1,0,2,2,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (147,2,1,3,1,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (148,2,1,2,2,3,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (149,3,0,3,1,3,0,0,2,0,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (150,2,1,1,4,2,1,0,3,0,2,2,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (151,2,0,4,1,2,0,2,1,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (152,4,0,3,1,3,0,2,2,0,2,2,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (153,3,1,4,4,2,0,2,2,1,1,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (154,3,1,4,2,2,0,2,1,1,3,3,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (155,4,1,4,3,3,0,2,1,0,3,2,3,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (156,2,1,4,4,2,0,0,3,1,2,1,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (157,3,1,4,2,2,0,2,3,0,1,1,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (158,3,1,4,4,2,0,2,3,0,2,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (159,4,1,3,1,2,0,0,2,0,2,1,1,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (160,2,1,2,1,1,1,0,2,0,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (161,4,1,4,2,3,0,2,2,1,1,1,3,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (162,2,0,3,1,2,0,0,2,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (163,3,0,4,1,2,0,2,1,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (164,2,1,3,2,2,1,0,3,0,1,1,2,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (165,3,1,4,3,2,0,0,2,1,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (166,2,0,2,3,2,1,2,2,1,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (167,1,1,4,2,2,0,2,2,1,1,1,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (168,2,0,2,1,1,0,0,1,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (169,4,1,3,4,2,0,0,1,1,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (170,2,1,4,4,2,0,2,1,1,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (171,3,0,4,4,2,0,0,2,1,1,2,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (172,3,0,4,4,3,0,2,2,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (173,3,1,4,4,2,0,2,1,0,3,2,2,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (174,3,1,4,4,2,0,0,1,1,2,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (175,2,1,4,1,2,1,0,2,0,1,1,3,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (176,3,1,4,3,1,0,2,1,1,3,2,1,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (177,2,1,3,3,3,0,0,2,0,2,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (178,2,1,3,3,2,1,2,3,0,1,1,3,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (179,2,1,4,2,2,0,2,2,0,1,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (180,3,0,4,3,3,0,2,2,1,2,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (181,2,1,1,4,2,0,2,3,0,1,1,2,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (182,3,1,1,4,2,0,2,2,0,4,3,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (183,3,0,4,4,3,0,2,2,0,1,1,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (184,3,0,2,4,1,0,0,3,0,1,1,2,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (185,2,1,3,2,2,1,0,3,0,1,3,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (186,4,1,2,4,2,0,0,1,1,1,2,3,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (187,2,1,2,5,2,0,2,3,0,1,1,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (188,4,1,3,4,2,0,2,2,0,3,2,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (189,2,1,3,2,1,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (190,2,1,4,4,2,0,0,1,1,4,2,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (191,3,0,4,3,2,1,0,1,0,2,2,3,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (192,4,0,3,2,2,0,2,1,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (193,4,1,4,1,2,0,2,1,1,1,2,2,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (194,4,1,1,4,2,1,2,1,0,1,2,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (195,2,0,4,3,2,0,2,2,1,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (196,2,0,2,2,2,0,0,2,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (197,3,1,1,4,2,0,2,1,0,1,1,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (198,2,0,4,1,2,0,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (199,3,0,4,4,3,0,0,2,1,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (200,3,1,3,4,1,1,0,3,0,1,1,1,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (201,3,0,3,4,3,0,0,1,0,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (202,2,1,4,1,2,0,0,2,0,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (203,2,1,4,4,3,0,2,2,1,1,2,3,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (204,3,1,4,2,2,0,2,1,1,3,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (205,2,1,4,4,2,0,2,1,1,1,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (206,3,1,2,3,2,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (207,3,0,4,4,2,0,0,2,1,2,2,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (208,1,0,3,2,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (209,1,1,1,2,2,0,0,3,1,4,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (210,2,1,3,3,2,0,2,2,0,3,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (211,4,0,4,4,2,1,0,2,1,2,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (212,2,1,4,1,2,0,0,2,0,1,1,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (213,3,1,1,2,1,0,2,2,0,2,2,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (214,2,0,2,1,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (215,2,0,4,3,2,0,2,2,1,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (216,3,0,4,3,3,0,0,1,0,3,2,2,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (217,3,1,4,3,2,0,2,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (218,2,0,3,1,2,0,2,3,1,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (219,2,0,3,1,2,0,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (220,1,0,3,1,1,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (221,2,1,4,2,2,0,0,1,1,3,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (222,3,0,4,1,2,0,0,2,1,2,2,2,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (223,1,0,2,1,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (224,2,1,4,1,2,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (225,4,0,3,4,2,0,0,3,0,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (226,2,1,4,1,2,0,2,1,1,1,2,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (227,4,1,4,1,2,0,2,1,1,1,1,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (228,2,0,3,3,1,0,2,2,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (229,3,0,4,4,3,0,1,1,1,4,2,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (230,2,1,3,1,1,0,2,1,0,1,1,3,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (231,4,0,2,2,2,0,2,1,1,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (232,2,0,3,4,2,0,0,2,0,1,1,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (233,2,1,4,2,2,0,2,1,1,4,2,2,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (234,3,1,4,3,2,1,2,1,1,2,3,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (235,2,1,4,2,2,0,2,2,0,1,1,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (236,2,0,2,3,2,0,0,2,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (237,2,1,2,2,2,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (238,2,1,2,1,2,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (239,2,0,2,2,3,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (240,2,0,4,3,2,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (241,3,1,1,3,2,0,0,2,0,3,2,2,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (242,3,0,3,2,1,1,0,1,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (243,4,1,4,2,2,0,0,1,0,2,2,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (244,3,1,4,1,2,0,0,2,0,1,1,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (245,2,1,4,1,2,0,2,1,1,2,2,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (246,2,1,4,2,2,0,0,2,0,2,1,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (247,3,1,2,2,2,1,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (248,3,1,4,1,2,0,0,1,1,2,2,0,6,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (249,3,1,4,4,2,0,0,1,0,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (250,3,1,4,2,2,0,0,1,1,1,2,1,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (251,2,0,3,2,2,0,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (252,2,1,4,1,3,0,0,3,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (253,2,0,3,2,2,0,0,3,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (254,4,0,4,1,2,0,0,2,0,1,1,2,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (255,4,0,3,4,1,0,1,1,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (256,4,1,2,4,2,0,2,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (257,3,1,2,2,2,0,0,2,0,1,1,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (258,2,0,3,1,2,0,0,2,0,1,2,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (259,3,0,2,3,3,1,2,2,0,1,1,2,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (260,3,0,1,4,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (261,2,1,3,2,2,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (262,3,1,4,3,1,0,2,1,1,4,2,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (263,2,1,4,3,3,0,0,1,1,2,2,0,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (264,3,1,3,2,2,1,0,1,0,3,2,1,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (265,2,1,4,4,2,0,0,3,0,1,1,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (266,2,1,3,3,1,0,0,2,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (267,3,1,4,4,2,0,2,1,1,2,1,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (268,4,1,4,4,2,0,2,1,0,3,1,0,6,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (269,2,1,4,4,3,0,0,1,1,2,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (270,4,0,4,1,1,0,0,1,0,2,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (271,3,1,1,3,2,0,0,2,0,1,1,2,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (272,3,1,1,4,2,0,2,2,0,1,2,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (273,4,0,3,4,2,0,2,2,0,1,2,1,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (274,1,0,3,3,2,0,0,2,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (275,3,1,2,4,2,0,2,2,0,1,1,1,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (276,3,0,4,3,1,0,0,1,0,1,2,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (277,3,1,4,1,3,0,0,2,1,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (278,2,1,3,3,2,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (279,3,0,4,2,2,0,1,1,1,3,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (280,1,1,2,2,1,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (281,3,1,4,4,2,0,0,2,0,1,1,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (282,3,1,4,1,3,0,1,2,0,4,3,3,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (283,3,0,4,4,2,1,2,2,1,3,2,2,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (284,3,1,2,3,2,0,2,2,0,1,1,0,7,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (285,3,1,2,2,2,0,0,2,0,1,3,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (286,4,1,3,4,2,0,2,2,0,1,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (287,3,0,2,3,3,0,0,2,0,2,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (288,2,1,4,2,1,0,0,2,1,3,3,0,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (289,3,1,4,4,1,0,2,2,1,4,1,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (290,3,0,4,2,1,0,0,1,1,1,2,0,3,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (291,2,1,2,2,1,0,0,3,0,1,1,0,3,0)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (292,3,1,4,4,1,1,2,1,0,2,2,2,6,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (293,3,0,4,4,2,0,0,1,1,1,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (294,2,1,1,1,2,0,0,1,0,2,2,0,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (295,4,1,4,4,1,1,0,2,0,4,2,2,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (296,3,1,4,3,1,0,0,1,1,2,2,1,7,1)
+insert into mytable (id,age,sex,cpt,pressure,chol,sugar,ecg,maxbpm,angina,oldpeak,slope,flourosopy,thal,diagnosis) values (297,3,0,2,3,2,0,2,3,0,1,2,1,3,1)
 
 
-ALTER TABLE ONLY mytable
-    ADD CONSTRAINT mytable_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY mytable
+--     ADD CONSTRAINT mytable_pkey PRIMARY KEY (id);
 
 -- ALTER TABLE ONLY country
 --     ADD CONSTRAINT country_pkey PRIMARY KEY (code);
