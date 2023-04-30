@@ -571,10 +571,26 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                
                )
 
-
-
-
-
+@app.callback(
+    Output('Radio-1', 'value'),
+    Output('Radio-2', 'value'),
+    Output('Radio-3', 'value'),
+    Output('dropdown-1', 'value'),
+    Output('dropdown-2', 'value'),
+    Output('dropdown-3', 'value'),
+    Output('dropdown-4', 'value'),
+    Output('dropdown-5', 'value'),
+    Output('dropdown-6', 'value'),
+    Output('dropdown-7', 'value'),
+    Output('dropdown-8', 'value'),
+    Output('dropdown-9', 'value'),
+    Output('dropdown-10', 'value'),
+    Input('Reset-button', 'n_clicks')
+    )
+def reset_btn(n_clicks):
+    if n_clicks>0:
+        return (None,None,None,None,None,None,None,None,None,None,None,None,None)
+    return dash.no_update
 
 if __name__ == '__main__':
     app.run_server(debug=True)
