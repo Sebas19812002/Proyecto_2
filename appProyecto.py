@@ -6,14 +6,12 @@ from dash import dcc  # dash core components
 from dash import html # dash html components
 import pandas as pd
 import base64
-from pgmpy.estimators import BayesianEstimator
-from pgmpy.models import BayesianNetwork
+import psycopg2
+import os
 from pgmpy.inference import VariableElimination
-from pgmpy.estimators import MaximumLikelihoodEstimator
 from pgmpy.readwrite import BIFReader
 
 #Toca poner los datos en una base de datos de AWS
-df = pd.read_csv("Datos_Discretizados.csv")
 
 
 def estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
@@ -172,16 +170,31 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 
+
+
+#-----------------connect to DB----------------------#
+
+engine = psycopg2.connect(
+    dbname="datos",
+    user="postgres",
+    password="Proyecto2",
+    host="proyecto2.csd1nefyxik0.us-east-1.rds.amazonaws.com",
+    port="5432"
+)
+cursor = engine.cursor()
+query = """
+SELECT * 
+FROM mytable;"""
+
+df = pd.read_sql(query, engine)
+datos=df.drop("id", axis=1)
+
+
 #############################################################################################
 #Creación de las visualizaciones
-
-
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
-datos = pd.read_csv("Datos_Discretizados.csv")
-
 "1. Exploración de los datos--------------------------------------------------------------"
 #Graficos de pie
 
