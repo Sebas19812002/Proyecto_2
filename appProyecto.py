@@ -9,6 +9,7 @@ import os
 from pgmpy.inference import VariableElimination
 from pgmpy.readwrite import BIFReader
 from visualizaciones import *
+from dotenv import load_dotenv
 #Toca poner los datos en una base de datos de AWS
 
 
@@ -168,16 +169,24 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 
-
-
 #-----------------connect to DB----------------------#
+# path to env file
+env_path='env\\app.env'
+# load env 
+load_dotenv(dotenv_path=env_path)
+# extract env variables
+USER=os.getenv('USER')
+PASSWORD=os.getenv('PASSWORD')
+HOST=os.getenv('HOST')
+PORT=os.getenv('PORT')
+DBNAME=os.getenv('DBNAME')
 
 engine = psycopg2.connect(
-    dbname="datos",
-    user="postgres",
-    password="Proyecto2",
-    host="proyecto2.csd1nefyxik0.us-east-1.rds.amazonaws.com",
-    port="5432"
+    dbname=DBNAME,
+    user=USER,
+    password=PASSWORD,
+    host=HOST,
+    port=PORT
 )
 cursor = engine.cursor()
 query = "SELECT * FROM mytable;"
@@ -188,12 +197,9 @@ datos=df.drop("id", axis=1)
 
 #############################################################################################
 
-# crear_visualizaciones(datos)
+crear_visualizaciones(datos)
 
 ########################################################################################################################
-
-
-
 
 #Cargar una imagen desde el computador
 imagen_bienvenida='Bienvenidos.png'
@@ -481,7 +487,6 @@ app.layout = html.Div([
 @app.callback(
     Output('output', 'children'),
     Input('button', 'n_clicks'),
-    # Input('Reset-button', 'n_clicks'),
     State('Radio-1', 'value'),
     State('Radio-2', 'value'),
     State('Radio-3', 'value'),
@@ -508,7 +513,7 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                                      ]))
 
     
-    elif n_clicks > 0 and radio1 is not None and radio2 is not None and radio3 is not None and dropdown1 != "Seleccione" and dropdown2 != "Seleccione" and dropdown3 != "Seleccione" and dropdown4 != "Seleccione" and dropdown5 != "Seleccione" and dropdown6 != "Seleccione" and dropdown7 != "Seleccione" and dropdown8 != "Seleccione" and dropdown9 != "Seleccione" and dropdown10 != "Seleccione" :   
+    elif n_clicks > 0  and radio2 is not None and radio3 is not None and dropdown2 != "Seleccione" and dropdown3 != "Seleccione" and dropdown4 != "Seleccione" and dropdown5 != "Seleccione" and dropdown6 != "Seleccione" and dropdown7 != "Seleccione" and dropdown8 != "Seleccione" and dropdown9 != "Seleccione" and dropdown10 != "Seleccione" :   
         tabla=html.Table([
                 html.Tr([
                     html.Td(''),
@@ -589,7 +594,7 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
     )
 def reset_btn(n_clicks):
     if n_clicks>0:
-        return (None,None,None,None,None,None,None,None,None,None,None,None,None)
+        return (None,'No aplica','No aplica',None,'No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica')
     return dash.no_update
 
 if __name__ == '__main__':
