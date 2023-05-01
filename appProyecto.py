@@ -178,16 +178,16 @@ env_path='env\\app.env'
 # load env 
 load_dotenv(dotenv_path=env_path)
 # extract env variables
-USER=os.getenv('USER')
-PASSWORD=os.getenv('PASSWORD')
+DBUSER=os.getenv('USER')
+DBPASSWORD=os.getenv('PASSWORD')
 HOST=os.getenv('HOST')
 PORT=os.getenv('PORT')
 DBNAME=os.getenv('DBNAME')
 
 engine = psycopg2.connect(
     dbname=DBNAME,
-    user=USER,
-    password=PASSWORD,
+    user=DBUSER,
+    password=DBPASSWORD,
     host=HOST,
     port=PORT
 )
