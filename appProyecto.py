@@ -174,12 +174,12 @@ server = app.server
 
 #-----------------connect to DB----------------------#
 # path to env file
-env_path='env\\app.env'
+env_path='env/app.env'
 # load env 
 load_dotenv(dotenv_path=env_path)
 # extract env variables
-DBUSER=os.getenv('USER')
-DBPASSWORD=os.getenv('PASSWORD')
+DBUSER=os.getenv('DBUSER')
+DBPASSWORD=os.getenv('DBPASSWORD')
 HOST=os.getenv('HOST')
 PORT=os.getenv('PORT')
 DBNAME=os.getenv('DBNAME')
