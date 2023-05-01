@@ -330,6 +330,8 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
 
     
     elif n_clicks > 0 and radio1 is not None and radio2 is not None and radio3 is not None and dropdown1 != "Seleccione" and dropdown2 != "Seleccione" and dropdown3 != "Seleccione" and dropdown4 != "Seleccione" and dropdown5 != "Seleccione" and dropdown6 != "Seleccione" and dropdown7 != "Seleccione" and dropdown8 != "Seleccione" and dropdown9 != "Seleccione" and dropdown10 != "Seleccione" :   
+        
+        resultado=F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)
         tabla2=html.Table([
                 html.Tr([
                     # html.Td(''),
@@ -341,80 +343,66 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
 
                 html.Tr([
                     # html.Td('En ese sentido, tu resultado es:'),
-                    html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)*100}%", style={'text-align': 'center'}),
-                    html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[1],3)*100}%", style={'text-align': 'center'})
-                ]),
-                
-                ],style={'marginLeft': 'auto', 'marginRight': 'auto'})
+                    html.Td(f"{round(resultado[0],3)*100}%", style={'text-align': 'center'}),
+                    html.Td(f"{round(resultado[1],3)*100}%", style={'text-align': 'center'})
+                ])],
+
+                style={'marginLeft': 'auto', 'marginRight': 'auto'})
         
         tabla1=html.Table([
                 html.Tr([
-                    html.Td(''),
                     html.Td('Rango de edad del paciente'),
                     html.Td(dropdown1)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('Tipo de dolor torácico'),
                     html.Td(dropdown2)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('Presión arterial en reposo (mm/Hg)'),
                     html.Td(dropdown3)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('Colesterol sérico en mg/dl'),
                     html.Td(dropdown4)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('Resultados electrocardiográficos en reposo'),
                     html.Td(dropdown5)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('Frecuencia cardiaca máxima alcanzada'),
                     html.Td(dropdown6)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('La pendiente (Slot) del segmento ST de ejercicio máximo'),
                     html.Td(dropdown7)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('Número de vasos mayores coloreados por flouroscopia'),
                     html.Td(dropdown8)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('Descenso del segmento ST'),
                     html.Td(dropdown9)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('¿Qué tipo de Talasemia posee?'),
                     html.Td(dropdown10)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('Sexo del paciente'),
                     html.Td(radio1)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('¿Angina inducida por el ejercicio?'),
                     html.Td(radio2)
                 ]),
                 html.Tr([
-                    html.Td(''),
                     html.Td('¿La glucemia en ayunas es menor a 120 mg/dl?'),
                     html.Td(radio3)
-                ]),
-
-                ],style={'marginLeft': 'auto', 'marginRight': 'auto'})
+                ])],
+                style={'marginLeft': 'auto', 'marginRight': 'auto'})
 
 
 
