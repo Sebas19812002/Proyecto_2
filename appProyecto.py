@@ -280,9 +280,10 @@ app.layout = html.Div([
     html.Br(),
     html.Br(),
     
+    
+    
+    html.Button('Continuar', id='button', n_clicks=0,style={'marginLeft': '40%'}),
     html.Button('Vaciar todo', id='reset-button',n_clicks=0,style={'marginLeft': 'auto', 'marginRight': 'auto'}),
-    html.Br(),
-    html.Button('Continuar', id='button', n_clicks=0,style={'marginLeft': 'auto', 'marginRight': 'auto'}),
     html.Div(id='alert-container'),
     html.Div(id='output'),
     html.Br(),
@@ -319,7 +320,7 @@ app.layout = html.Div([
     
 def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
     
-    if n_clicks > 0 and radio1 is None or n_clicks > 0 and dropdown1 == "Seleccione" or n_clicks > 0 and dropdown1 is None:
+    if n_clicks > 0 and (radio1 is None or dropdown1 == "Seleccione" or dropdown1 is None):
         if radio1 is None:
             return html.H5(html.Div([html.Div('Por favor, asegurate de haber ingresado el genero del paciente',style={'color': 'red'})
                                     ]))
@@ -329,9 +330,9 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
 
     
     elif n_clicks > 0 and radio1 is not None and radio2 is not None and radio3 is not None and dropdown1 != "Seleccione" and dropdown2 != "Seleccione" and dropdown3 != "Seleccione" and dropdown4 != "Seleccione" and dropdown5 != "Seleccione" and dropdown6 != "Seleccione" and dropdown7 != "Seleccione" and dropdown8 != "Seleccione" and dropdown9 != "Seleccione" and dropdown10 != "Seleccione" :   
-        tabla1=html.Table([
+        tabla2=html.Table([
                 html.Tr([
-                    html.Td(''),
+                    # html.Td(''),
                     html.Th('Probabilidad de NO tener la enfermedad'),
                     html.Th('Probabilidad de SI tener la enfermedad'),
                     
@@ -339,13 +340,14 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                 
 
                 html.Tr([
-                    html.Td('En ese sentido, tu resultado es:'),
-                    html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)}", style={'text-align': 'center'}),
-                    html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[1],3)}", style={'text-align': 'center'})
+                    # html.Td('En ese sentido, tu resultado es:'),
+                    html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)*100}%", style={'text-align': 'center'}),
+                    html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[1],3)*100}%", style={'text-align': 'center'})
                 ]),
                 
                 ],style={'marginLeft': 'auto', 'marginRight': 'auto'})
-        tabla2=html.Table([
+        
+        tabla1=html.Table([
                 html.Tr([
                     html.Td(''),
                     html.Td('Rango de edad del paciente'),
@@ -412,83 +414,23 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                     html.Td(radio3)
                 ]),
 
-                ])
-        # dash.dash_table({'hola':dropdown1})
-        # tabla1css={border: 1px solid black;border-collapse: collapse;}
+                ],style={'marginLeft': 'auto', 'marginRight': 'auto'})
+
 
 
         return (html.Div(html.H5(["A Continuación se mostrará la información ingresada:", 
                         html.Br()],style={'color': 'green'})),
+               
+                html.Br(),
+               
+                tabla1,
+                html.Br(),
+               
+                html.Div(html.H5(["El diagnostico es:", 
+                        html.Br()],style={'color': 'green'})),
 
-                # html.table()
-                # <tr>
-                #     <th>Company</th>
-                #     <th>Contact</th>
-                #     <th>Country</th>
-                # </tr>
-                # <tr>
-                #     <td>Alfreds Futterkiste</td>
-                #     <td>Maria Anders</td>
-                #     <td>Germany</td>
-                # </tr>
-                # <tr>
-                #     <td>Centro comercial Moctezuma</td>
-                #     <td>Francisco Chang</td>
-                #     <td>Mexico</td>
-                # </tr>
-                # </table>
-
-
-
-
-            #    html.Div([f"·    Rango de edad del paciente -----------------------------------------> {dropdown1}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    Tipo de dolor torácico --------------------------------------------------> {dropdown2}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    Presión arterial en reposo (mm/Hg) --------------------------------> {dropdown3}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    Colesterol sérico en mg/dl --------------------------------------------> {dropdown4}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    Resultados electrocardiográficos en reposo ----------------------> {dropdown5}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    Frecuencia cardiaca máxima alcanzada --------------------------> {dropdown6}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    La pendiente (Slot )del segmento ST de ejercicio máximo ----> {dropdown7}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    Número de vasos mayores coloreados por flouroscopia ------> {dropdown8}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    Descenso del segmento ST -------------------------------------------> {dropdown9}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    ¿Qué tipo de Talasemia posee? --------------------------------------> {dropdown10}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    Indique el sexo del paciente -------------------------------------------> {radio1}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    ¿Angina inducida por el ejercicio? ------------------------------------> {radio2}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-            #    html.Div([f"·    ¿La glucemia en ayunas es menor a 120 mg/dl? -----------------> {radio3}", 
-            #             html.Br()],style={'color': 'black'}),
-               
-               html.Br(),
-               
-               tabla1,
-               html.Br(),
-                
-               tabla2,
-               html.Br(),
-
-
+                tabla2,
+                html.Br(),
             
                )
 
