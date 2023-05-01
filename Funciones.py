@@ -2,13 +2,52 @@
 
 "1. Exploración de los datos--------------------------------------------------------------"
 #Graficos de pie
-
-def crear_visualizaciones(datos):
+def Conexion_DB_():
+    import pandas as pd
+    import psycopg2
+    import os
+    from dotenv import load_dotenv
+    # path to env file
+    env_path='informacion.env'
+    # load env 
+    load_dotenv(dotenv_path=env_path)
+    # extract env variables
+    USER=os.getenv('DUSER')
+    PASSWORD=os.getenv('DPASSWORD')
+    HOST=os.getenv('DHOST')
+    PORT=os.getenv('DPORT')
+    DBNAME=os.getenv('DDBNAME')
+    print(HOST)
+    #connect to DB
+    engine = psycopg2.connect(
+        dbname=DBNAME,
+        user=USER,
+        password=PASSWORD,
+        host=HOST,
+        port=PORT
+    )
     
-#1. Exploración de los datos--------------------------------------------------------------"
-    #Graficos de pie
+    cursor = engine.cursor()
+    
+    query = """
+    SELECT * 
+    FROM mytable;"""
+    
+    cursor.execute(query)
+    data=cursor.fetchall()
+    df=pd.DataFrame(data,columns=['id','age', 'sex', 'cpt', 'pressure', 'chol', 'sugar', 'ecg', 'maxbpm',
+           'angina', 'oldpeak', 'slope', 'flourosopy', 'thal', 'diagnosis'])
+    datos=df.drop("id", axis=1)
+    return datos
+def crear_visualizaciones(datos):
+    #############################################################################################
+    #Creación de las visualizaciones
     import numpy as np
     import matplotlib.pyplot as plt
+    
+    "1. Exploración de los datos--------------------------------------------------------------"
+    #Graficos de pie
+    
     
     #Género
     fig, ax = plt.subplots()
@@ -397,12 +436,6 @@ def crear_visualizaciones(datos):
     
     
     "------------------------------SEXTO GRÁFICO-----------------------------------"
-    oldpeak_J1 = datos.loc[(datos['age'] == 1) & (datos['oldpeak'] == 1)].shape[0]
-    oldpeak_A1 = datos.loc[(datos['age'] == 2) & (datos['oldpeak'] == 1)].shape[0]
-    oldpeak_AM1 = datos.loc[(datos['age'] == 3) & (datos['oldpeak'] == 1)].shape[0]
-    oldpeak_T1 = datos.loc[(datos['age'] == 4) & (datos['oldpeak'] == 1)].shape[0]
-    
-    
     pressure_J2 = datos.loc[(datos['age'] == 1) & (datos['oldpeak'] == 2)].shape[0]
     pressure_A2 = datos.loc[(datos['age'] == 2) & (datos['oldpeak'] == 2)].shape[0]
     pressure_AM2 = datos.loc[(datos['age'] == 3) & (datos['oldpeak'] == 2)].shape[0]
@@ -449,5 +482,159 @@ def crear_visualizaciones(datos):
     ax.legend(loc="upper center", bbox_to_anchor=[0.5,-0.02], ncol=2, fontsize= 14)
     fig.subplots_adjust(top=0.9,bottom=0.3)
     plt.savefig('Propension6.png')
+    
+    
+    ############
     return None
+
+def estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
+    from pgmpy.inference import VariableElimination
+    from pgmpy.readwrite import BIFReader
+
+    Sex=9
+    if radio1 == 'Hombre':
+       Sex="1"
+    elif radio1 ==  'Mujer':
+       Sex="0"
+       
+    Exang=9
+    if radio2 == 'Si':
+       Exang="1"
+    elif radio2 == 'No':
+       Exang="0"
+ 
+       
+    Fbs=9
+    if radio3 == 'Si':
+       Fbs="1"
+    elif radio3 ==  'No':
+       Fbs="0"
+    
+    
+    edad = 9
+    if dropdown1 == "Entre 29 y 39 años":
+        edad = "1"
+    elif dropdown1 == "Entre 40 y 54 años":
+            edad = "2"
+    elif dropdown1 == "Entre 55 y 64 años":
+        edad = "3"
+    elif dropdown1 == "Entre 65 y 79 años":
+        edad ="4"
+    
+    CP = 9
+    if dropdown2 == 'Angina típica':
+        CP = "1"
+    elif dropdown2 == 'Angina atípica':
+        CP = "2"
+    elif dropdown2 == 'Dolor no anginoso':
+        CP = "3"
+    elif dropdown2 == 'Asintomático':
+        CP = "4"
+    
+    Trestbps =9
+    
+    if dropdown3 == 'Entre 94 y 120':
+        Trestbps = "1"
+    elif dropdown3 == 'Entre 121 y 129':
+        Trestbps = "2"
+    elif dropdown3 == 'Entre 130 y 139':
+        Trestbps = "3"
+    elif dropdown3 == 'Entre 140 y 180':
+        Trestbps = "4"
+    elif dropdown3 == 'Entre 181 y 210':
+        Trestbps = "5"
+        
+    Chol =9
+    
+    if dropdown4 == 'Deseable':
+        Chol = "1"
+    elif dropdown4 == 'Elevado':
+        Chol = "2"
+    elif dropdown4 == 'Muy Elevado':
+        Chol = "3"
+    
+    ecg=9
+    if dropdown5 == 'Normal':
+        ecg = "0"
+    elif dropdown5 =='Anormalidad de la onda ST-T':
+        ecg = "1"
+    elif dropdown5 =='Hipertrofia ventricular':
+        ecg = "2"
+        
+    maxbpm=9    
+    if dropdown6 =='Entre 71 y 139':
+        maxbpm="1"
+    elif dropdown6 =='Entre 140 y 169':
+        maxbpm="2"
+    elif dropdown6 =='Entre 170 y 210':
+        maxbpm="3"
+    
+    slope = 9
+    if dropdown7 =='Pendiente ascendente':
+        slope="1"
+    elif dropdown7 =='Plano':
+        slope="2"
+    elif dropdown7 =='Pendiente descendente':
+        slope="3"
+
+    ca=9
+    if dropdown8 =='1':
+        ca="1"
+    elif dropdown8 =='2':
+        ca="2"
+    elif dropdown8 =='3':
+        ca="3"
+    
+    Oldpeak=9
+    if dropdown9 == 'Normal':
+        Oldpeak="1"
+    elif dropdown9 == 'Lig. Elevada':
+        Oldpeak="2"
+    elif dropdown9 == 'Mod. Elevada':
+        Oldpeak="3"
+    elif dropdown9 == 'Alt. Elevada':
+        Oldpeak="4"
+   
+    
+    Thal=9
+    if dropdown10 == 'Normal':
+        Thal="3"
+    elif dropdown10 == 'Defecto Fijo':
+        Thal="6"
+    elif dropdown10 == 'Defecto Reversible':
+        Thal="7"
+   
+    modelo = BIFReader("Modelo.bif").get_model()
+    inferencia = VariableElimination(modelo)
+    evidencia = {}
+    
+    if Sex !=9: 
+        evidencia["sex"]= Sex
+    if Exang !=9: 
+        evidencia["angina"]= Exang
+    if edad !=9: 
+        evidencia["age"]= edad
+    if Fbs !=9: 
+        evidencia["sugar"]= Fbs
+    if CP !=9: 
+        evidencia["cpt"]= CP
+    if Trestbps !=9: 
+        evidencia["pressure"]= Trestbps
+    if Chol !=9: 
+        evidencia["chol"]= Chol
+    if ecg !=9: 
+        evidencia["ecg"]= ecg
+    if maxbpm !=9: 
+        evidencia["maxbpm"]= maxbpm
+    if slope !=9: 
+        evidencia["slope"]= slope
+    if ca !=9: 
+        evidencia["flourosopy"]= ca
+    if Oldpeak !=9: 
+        evidencia["oldpeak"]= Oldpeak
+    if Thal !=9: 
+        evidencia["thal"]= Thal
+    
+    resultado = inferencia.query(['diagnosis'],evidence=evidencia).values
+    return resultado
 

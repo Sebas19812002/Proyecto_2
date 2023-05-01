@@ -1,169 +1,9 @@
 import dash
+import dash_html_components as html
+import dash_core_components as dcc
 from dash.dependencies import Input, Output, State
-from dash import dcc  # dash core components
-from dash import html # dash html components
-import pandas as pd
 import base64
-import psycopg2
-import os
-from pgmpy.inference import VariableElimination
-from pgmpy.readwrite import BIFReader
-import visualizaciones
-from dotenv import load_dotenv
-
-
-abspath = os.path.abspath(__file__)
-dname = os.path.dirname(abspath)
-os.chdir(dname)
-
-def estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
-
-    Sex=9
-    if radio1 == 'Hombre':
-       Sex="1"
-    elif radio1 ==  'Mujer':
-       Sex="0"
-       
-    Exang=9
-    if radio2 == 'Si':
-       Exang="1"
-    elif radio2 == 'No':
-       Exang="0"
- 
-       
-    Fbs=9
-    if radio3 == 'Si':
-       Fbs="1"
-    elif radio3 ==  'No':
-       Fbs="0"
-    
-    
-    edad = 9
-    if dropdown1 == "Entre 29 y 39 años":
-        edad = "1"
-    elif dropdown1 == "Entre 40 y 54 años":
-            edad = "2"
-    elif dropdown1 == "Entre 55 y 64 años":
-        edad = "3"
-    elif dropdown1 == "Entre 65 y 79 años":
-        edad ="4"
-    
-    CP = 9
-    if dropdown2 == 'Angina típica':
-        CP = "1"
-    elif dropdown2 == 'Angina atípica':
-        CP = "2"
-    elif dropdown2 == 'Dolor no anginoso':
-        CP = "3"
-    elif dropdown2 == 'Asintomático':
-        CP = "4"
-    
-    Trestbps =9
-    
-    if dropdown3 == 'Entre 94 y 120':
-        Trestbps = "1"
-    elif dropdown3 == 'Entre 121 y 129':
-        Trestbps = "2"
-    elif dropdown3 == 'Entre 130 y 139':
-        Trestbps = "3"
-    elif dropdown3 == 'Entre 140 y 180':
-        Trestbps = "4"
-    elif dropdown3 == 'Entre 181 y 210':
-        Trestbps = "5"
-        
-    Chol =9
-    
-    if dropdown4 == 'Deseable':
-        Chol = "1"
-    elif dropdown4 == 'Elevado':
-        Chol = "2"
-    elif dropdown4 == 'Muy Elevado':
-        Chol = "3"
-    
-    ecg=9
-    if dropdown5 == 'Normal':
-        ecg = "0"
-    elif dropdown5 =='Anormalidad de la onda ST-T':
-        ecg = "1"
-    elif dropdown5 =='Hipertrofia ventricular':
-        ecg = "2"
-        
-    maxbpm=9    
-    if dropdown6 =='Entre 71 y 139':
-        maxbpm="1"
-    elif dropdown6 =='Entre 140 y 169':
-        maxbpm="2"
-    elif dropdown6 =='Entre 170 y 210':
-        maxbpm="3"
-    
-    slope = 9
-    if dropdown7 =='Pendiente ascendente':
-        slope="1"
-    elif dropdown7 =='Plano':
-        slope="2"
-    elif dropdown7 =='Pendiente descendente':
-        slope="3"
-
-    ca=9
-    if dropdown8 =='1':
-        ca="1"
-    elif dropdown8 =='2':
-        ca="2"
-    elif dropdown8 =='3':
-        ca="3"
-    
-    Oldpeak=9
-    if dropdown9 == 'Normal':
-        Oldpeak="1"
-    elif dropdown9 == 'Lig. Elevada':
-        Oldpeak="2"
-    elif dropdown9 == 'Mod. Elevada':
-        Oldpeak="3"
-    elif dropdown9 == 'Alt. Elevada':
-        Oldpeak="4"
-   
-    
-    Thal=9
-    if dropdown10 == 'Normal':
-        Thal="3"
-    elif dropdown10 == 'Defecto Fijo':
-        Thal="6"
-    elif dropdown10 == 'Defecto Reversible':
-        Thal="7"
-   
-    modelo = BIFReader("Modelo.bif").get_model()
-    inferencia = VariableElimination(modelo)
-    evidencia = {}
-    
-    if Sex !=9: 
-        evidencia["sex"]= Sex
-    if Exang !=9: 
-        evidencia["angina"]= Exang
-    if edad !=9: 
-        evidencia["age"]= edad
-    if Fbs !=9: 
-        evidencia["sugar"]= Fbs
-    if CP !=9: 
-        evidencia["cpt"]= CP
-    if Trestbps !=9: 
-        evidencia["pressure"]= Trestbps
-    if Chol !=9: 
-        evidencia["chol"]= Chol
-    if ecg !=9: 
-        evidencia["ecg"]= ecg
-    if maxbpm !=9: 
-        evidencia["maxbpm"]= maxbpm
-    if slope !=9: 
-        evidencia["slope"]= slope
-    if ca !=9: 
-        evidencia["flourosopy"]= ca
-    if Oldpeak !=9: 
-        evidencia["oldpeak"]= Oldpeak
-    if Thal !=9: 
-        evidencia["thal"]= Thal
-    
-    resultado = inferencia.query(['diagnosis'],evidence=evidencia).values
-    return resultado
+import Funciones as F
 
 #http://127.0.0.1:8050/ 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -172,39 +12,14 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 
+
+
 #-----------------connect to DB----------------------#
-# path to env file
-env_path='env/app.env'
-# load env 
-load_dotenv(dotenv_path=env_path)
-# extract env variables
-DBUSER=os.getenv('DBUSER')
-DBPASSWORD=os.getenv('DBPASSWORD')
-HOST=os.getenv('HOST')
-PORT=os.getenv('PORT')
-DBNAME=os.getenv('DBNAME')
+datos=F.Conexion_DB_()
+#------------------Graficas--------------------------------#
+F.crear_visualizaciones(datos)
+#------------Cargar una imagen desde el computador--------------#
 
-engine = psycopg2.connect(
-    dbname=DBNAME,
-    user=DBUSER,
-    password=DBPASSWORD,
-    host=HOST,
-    port=PORT
-)
-
-query = "SELECT * FROM mytable;"
-
-df = pd.read_sql(query, engine)
-datos=df.drop("id", axis=1)
-
-
-#############################################################################################
-
-visualizaciones.crear_visualizaciones(datos)
-
-########################################################################################################################
-
-#Cargar una imagen desde el computador
 imagen_bienvenida='Bienvenidos.png'
 encoded_image = base64.b64encode(open(imagen_bienvenida, 'rb').read())
 image = html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()),
@@ -328,12 +143,6 @@ tab3=dcc.Tab(label='Información estadística',children=[
 ])
 pestanas = [tab1, tab2, tab3]
 tabs = dcc.Tabs(children=pestanas)
-
-
-
-
-
-
 
 
 app.layout = html.Div([
@@ -469,8 +278,12 @@ app.layout = html.Div([
                 style={'display': 'inline-block', 'margin-right': '10px','width': '22%'}
                 ),
     html.Br(),
+    html.Br(),
+    
+    html.Button('Vaciar todo', id='reset-button',n_clicks=0),
+        
+    html.Br(),
     html.Button('Continuar', id='button', n_clicks=0),
-    html.Button('Reset', id='Reset-button', n_clicks=0),
     html.Div(id='alert-container'),
     html.Div(id='output'),
     html.Br(),
@@ -507,7 +320,7 @@ app.layout = html.Div([
     
 def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
     
-    if n_clicks > 0 and (radio1 is None or dropdown1 == "Seleccione" or dropdown1 is None):
+    if n_clicks > 0 and radio1 is None or n_clicks > 0 and dropdown1 == "Seleccione" or n_clicks > 0 and dropdown1 is None:
         if radio1 is None:
             return html.H5(html.Div([html.Div('Por favor, asegurate de haber ingresado el genero del paciente',style={'color': 'red'})
                                     ]))
@@ -516,7 +329,7 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                                      ]))
 
     
-    elif n_clicks > 0  and radio2 is not None and radio3 is not None and dropdown2 != "Seleccione" and dropdown3 != "Seleccione" and dropdown4 != "Seleccione" and dropdown5 != "Seleccione" and dropdown6 != "Seleccione" and dropdown7 != "Seleccione" and dropdown8 != "Seleccione" and dropdown9 != "Seleccione" and dropdown10 != "Seleccione" :   
+    elif n_clicks > 0 and radio1 is not None and radio2 is not None and radio3 is not None and dropdown1 != "Seleccione" and dropdown2 != "Seleccione" and dropdown3 != "Seleccione" and dropdown4 != "Seleccione" and dropdown5 != "Seleccione" and dropdown6 != "Seleccione" and dropdown7 != "Seleccione" and dropdown8 != "Seleccione" and dropdown9 != "Seleccione" and dropdown10 != "Seleccione" :   
         tabla=html.Table([
                 html.Tr([
                     html.Td(''),
@@ -527,8 +340,8 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
 
                 html.Tr([
                     html.Td('En ese sentido, tu resultado es:'),
-                    html.Td(f"{round(estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)}", style={'text-align': 'center'}),
-                    html.Td(f"{round(estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[1],3)}", style={'text-align': 'center'})
+                    html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)}", style={'text-align': 'center'}),
+                    html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[1],3)}", style={'text-align': 'center'})
                 ])])
         
         return (html.Div(html.H5(["A Continuación se mostrará la información ingresada:", 
@@ -593,13 +406,15 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
     Output('dropdown-8', 'value'),
     Output('dropdown-9', 'value'),
     Output('dropdown-10', 'value'),
-    Input('Reset-button', 'n_clicks')
+    Input('reset-button', 'n_clicks')
     )
 def reset_btn(n_clicks):
     if n_clicks>0:
         return (None,'No aplica','No aplica',None,'No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica')
     return dash.no_update
 
+
+
 if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0')
+    app.run_server(debug=True)
     
