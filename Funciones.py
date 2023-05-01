@@ -17,7 +17,6 @@ def Conexion_DB_():
     HOST=os.getenv('DHOST')
     PORT=os.getenv('DPORT')
     DBNAME=os.getenv('DDBNAME')
-    print(HOST)
     #connect to DB
     engine = psycopg2.connect(
         dbname=DBNAME,

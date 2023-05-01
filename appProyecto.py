@@ -281,7 +281,7 @@ app.layout = html.Div([
     html.Br(),
     
     html.Button('Vaciar todo', id='reset-button',n_clicks=0),
-        
+    html.Br(),
     html.Br(),
     html.Button('Continuar', id='button', n_clicks=0),
     html.Div(id='alert-container'),
