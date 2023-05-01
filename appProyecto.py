@@ -8,9 +8,9 @@ import psycopg2
 import os
 from pgmpy.inference import VariableElimination
 from pgmpy.readwrite import BIFReader
-from visualizaciones import *
+import visualizaciones
 from dotenv import load_dotenv
-#Toca poner los datos en una base de datos de AWS
+
 
 
 def estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
@@ -197,7 +197,7 @@ datos=df.drop("id", axis=1)
 
 #############################################################################################
 
-crear_visualizaciones(datos)
+visualizaciones.crear_visualizaciones(datos)
 
 ########################################################################################################################
 
@@ -576,26 +576,24 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                
                )
 
-@app.callback(
-    Output('Radio-1', 'value'),
-    Output('Radio-2', 'value'),
-    Output('Radio-3', 'value'),
-    Output('dropdown-1', 'value'),
-    Output('dropdown-2', 'value'),
-    Output('dropdown-3', 'value'),
-    Output('dropdown-4', 'value'),
-    Output('dropdown-5', 'value'),
-    Output('dropdown-6', 'value'),
-    Output('dropdown-7', 'value'),
-    Output('dropdown-8', 'value'),
-    Output('dropdown-9', 'value'),
-    Output('dropdown-10', 'value'),
-    Input('Reset-button', 'n_clicks')
-    )
-def reset_btn(n_clicks):
-    if n_clicks>0:
-        return (None,'No aplica','No aplica',None,'No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica')
-    return dash.no_update
+#@app.callback(
+ #   Output('Radio-1', 'value'),
+  #  Output('Radio-2', 'value'),
+   # Output('Radio-3', 'value'),
+    #Output('dropdown-1', 'value'),
+    #Output('dropdown-2', 'value'),
+    #Output('dropdown-3', 'value'),
+    #Output('dropdown-4', 'value'),
+    #Output('dropdown-5', 'value'),
+    #Output('dropdown-6', 'value'),
+    #Output('dropdown-7', 'value'),
+    #Output('dropdown-8', 'value'),
+    #Output('dropdown-9', 'value'),
+    #Output('dropdown-10', 'value'),
+    #)
+  #  if n_clicks>0:
+   #     return (None,'No aplica','No aplica',None,'No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica','No aplica')
+    #return dash.no_update
 
 if __name__ == '__main__':
     app.run_server(debug=True)
