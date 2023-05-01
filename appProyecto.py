@@ -12,6 +12,9 @@ import visualizaciones
 from dotenv import load_dotenv
 
 
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
 def estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10):
 
@@ -188,7 +191,7 @@ engine = psycopg2.connect(
     host=HOST,
     port=PORT
 )
-cursor = engine.cursor()
+
 query = "SELECT * FROM mytable;"
 
 df = pd.read_sql(query, engine)
