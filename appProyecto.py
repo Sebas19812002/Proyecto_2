@@ -333,8 +333,9 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
         tabla=html.Table([
                 html.Tr([
                     html.Td(''),
-                    html.Td('Probabilidad de NO tener la enfermedad'),
-                    html.Td('Probabilidad de SI tener la enfermedad')
+                    html.Th('Probabilidad de NO tener la enfermedad'),
+                    html.Th('Probabilidad de SI tener la enfermedad'),
+                    
                 ]),
                 
 
@@ -342,10 +343,51 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                     html.Td('En ese sentido, tu resultado es:'),
                     html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)}", style={'text-align': 'center'}),
                     html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[1],3)}", style={'text-align': 'center'})
-                ])])
-        
+                ]),
+                
+                ],style={'marginLeft': 'auto', 'marginRight': 'auto'})
+        tabla1=html.Table([
+                html.Tr([
+                    html.Td(''),
+                    html.Td('Rango de edad del paciente'),
+                    html.Td(dropdown1)
+                ]),
+                
+
+                # html.Tr([
+                #     html.Td('En ese sentido, tu resultado es:'),
+                #     html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[0],3)}", style={'text-align': 'center'}),
+                #     html.Td(f"{round(F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)[1],3)}", style={'text-align': 'center'})
+                # ]),
+                ])
+        # dash.dash_table({'hola':dropdown1})
+        # tabla1css={border: 1px solid black;border-collapse: collapse;}
+
+
         return (html.Div(html.H5(["A Continuación se mostrará la información ingresada:", 
                         html.Br()],style={'color': 'green'})),
+
+                # html.table()
+                # <tr>
+                #     <th>Company</th>
+                #     <th>Contact</th>
+                #     <th>Country</th>
+                # </tr>
+                # <tr>
+                #     <td>Alfreds Futterkiste</td>
+                #     <td>Maria Anders</td>
+                #     <td>Germany</td>
+                # </tr>
+                # <tr>
+                #     <td>Centro comercial Moctezuma</td>
+                #     <td>Francisco Chang</td>
+                #     <td>Mexico</td>
+                # </tr>
+                # </table>
+
+
+
+
                html.Div([f"·    Rango de edad del paciente -----------------------------------------> {dropdown1}", 
                         html.Br()],style={'color': 'black'}),
                
@@ -387,9 +429,14 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
                
                html.Br(),
                
-               tabla
-              
-               
+               tabla,
+               html.Br(),
+                
+               tabla1,
+               html.Br(),
+
+
+            
                )
 
 @app.callback(
