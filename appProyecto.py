@@ -342,8 +342,8 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
 
                 html.Tr([
                     # html.Td('En ese sentido, tu resultado es:'),
-                    html.Td(f"{round(resultado[0],3)*100}%", style={'text-align': 'center'}),
-                    html.Td(f"{round(resultado[1],3)*100}%", style={'text-align': 'center'})
+                    html.Td(f"{round(resultado[0],1)*100}%", style={'text-align': 'center'}),
+                    html.Td(f"{round(resultado[1],1)*100}%", style={'text-align': 'center'})
                 ])],
 
                 style={'marginLeft': 'auto', 'marginRight': 'auto'})
