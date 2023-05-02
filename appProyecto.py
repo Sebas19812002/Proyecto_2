@@ -334,7 +334,6 @@ def validate_selection (n_clicks, radio1,radio2, radio3, dropdown1, dropdown2, d
         resultado=F.estimar(radio1,radio2, radio3, dropdown1, dropdown2, dropdown3, dropdown4, dropdown5, dropdown6, dropdown7, dropdown8, dropdown9, dropdown10)
         tabla2=html.Table([
                 html.Tr([
-                    # html.Td(''),
                     html.Th('Probabilidad de NO tener la enfermedad'),
                     html.Th('Probabilidad de SI tener la enfermedad'),
                     
