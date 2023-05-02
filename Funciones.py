@@ -28,9 +28,7 @@ def Conexion_DB_():
     
     cursor = engine.cursor()
     
-    query = """
-    SELECT * 
-    FROM mytable;"""
+    query = "SELECT * FROM mytable;"
     
     cursor.execute(query)
     data=cursor.fetchall()
@@ -38,6 +36,7 @@ def Conexion_DB_():
            'angina', 'oldpeak', 'slope', 'flourosopy', 'thal', 'diagnosis'])
     datos=df.drop("id", axis=1)
     return datos
+
 def crear_visualizaciones(datos):
     #############################################################################################
     #Creación de las visualizaciones
