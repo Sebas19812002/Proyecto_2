@@ -54,7 +54,7 @@ df_prueba= pd.read_csv("Datos_test.csv")
 #-----Padres---------#
 padres={"sex":0, "age":0}
 #-----nodos-------#
-edges_fijos=[("diagnosis","ecg")]
+edges_fijos=[("diagnosis","ecg"),("age","pressure"),("sex","pressure"),("sugar","chol")]
 
 
 #-------------------------------------------------------------#
@@ -164,7 +164,21 @@ print("BIC Score","\n",puntajeBIC,"\n")
 #-------------------------------------------------------------#
 
 print("#-----------------------Modelo de otro grupo----------------------------##")
-modelo_ = BayesianNetwork([("sex", "chol"), ("age", "chol"), ("age", "sugar"),("thal", "pressure"), ("chol", "diagnosis"),("sugar", "pressure"),("pressure", "diagnosis"),("diagnosis", "flourosopy"),("diagnosis", "maxbpm"),("diagnosis", "angina"),("diagnosis", "ecg"),("angina", "cpt"),("cpt", "oldpeak"),( "ecg","oldpeak"),("ecg","slope")])
+modelo_ = BayesianNetwork([("sex", "chol"),
+                           ("age", "chol"),
+                           ("age", "sugar"),
+                           ("thal", "pressure"),
+                           ("chol", "diagnosis"),
+                           ("sugar", "pressure"),
+                           ("pressure", "diagnosis"),
+                           ("diagnosis", "flourosopy"),
+                           ("diagnosis", "maxbpm"),
+                           ("diagnosis", "angina"),
+                           ("diagnosis", "ecg"),
+                           ("angina", "cpt"),
+                           ("cpt", "oldpeak"),
+                           ( "ecg","oldpeak"),
+                           ("ecg","slope")])
 modelo_.fit(data=df_ent, estimator = BayesianEstimator)
 modelo_.check_model()
 print("Nodos y edges\n",modelo_.nodes(),"\n",modelo_.edges(),"\n")
