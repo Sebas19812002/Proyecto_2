@@ -136,12 +136,8 @@ tab2=dcc.Tab(label='Propensión y comportamiento',children=[
     html.Div(Prop6)
 ])
 
-tab3=dcc.Tab(label='Información estadística',children=[
-    html.Div('En esta pesataña usted encontrara una tabla de correlación que le pueden ayudar a comprender mejor los datos y sus relaciones.'),
-    html.Br(),
-    html.Div(Estad1)
-])
-pestanas = [tab1, tab2, tab3]
+
+pestanas = [tab1, tab2]
 tabs = dcc.Tabs(children=pestanas)
 
 
@@ -295,7 +291,8 @@ app.layout = html.Div([
     tabs,
     html.Br(),
     html.Br(),   
-    
+    html.Br(),  
+    html.Br(),  
     html.Div(children=[fina])
     ])
 
