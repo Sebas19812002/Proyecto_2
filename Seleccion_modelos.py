@@ -37,13 +37,17 @@ def Metricas (test_data, modelo, tipo):
         if resultado[0]>=0.5 :
             Prediccion=0
         if Prediccion == real[-1] and Prediccion==1  :
+            #Tiene la enfermedad el modelo acerto
             vp+=1
         elif Prediccion == real[-1] and Prediccion==0 :
-            fp+=1
-        elif Prediccion != real[-1] and Prediccion==0 and real[-1]==1 :
-            fn+=1
-        else:   
+            #No tiene la enfermedad y el modelo acerto   
             vn+=1
+        elif Prediccion != real[-1] and Prediccion==0 and real[-1]==1 :
+            #Tiene la enfermedad y el modelo no acerto 
+            fn+=1
+        else:  
+            #No tiene la enfermedad pero el modelo dio positivo
+            fp+=1
     tabla.loc[0] = [vp,vn, fp, fn]     
     return(tabla)
 
