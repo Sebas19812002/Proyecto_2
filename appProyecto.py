@@ -291,7 +291,8 @@ app.layout = html.Div([
     tabs,
     html.Br(),
     html.Br(),   
-    
+    html.Br(),  
+    html.Br(),  
     html.Div(children=[fina])
     ])
 
