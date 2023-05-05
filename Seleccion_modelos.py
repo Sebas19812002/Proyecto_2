@@ -59,7 +59,7 @@ df_prueba= pd.read_csv("Datos_test.csv")
 padres={"sex":0, "age":0}
 #-----nodos-------#
 edges_fijos=[("diagnosis","ecg"),("age","pressure"),("sex","pressure"),("sugar","chol")]
-
+black_list =[("chol","sex"),("maxbpm","age"),("diagnosis","sex"),("diagnosis","age"), ('thal', 'sex')]
 
 #-------------------------------------------------------------#
 #-----------------------Modelo nuestro------------------------#
@@ -115,8 +115,9 @@ print("#-----------Modelo por Hillclimb y score K2 ------------#x ")
 scoring_method = K2Score(data=df_ent)  #Que tanto una variable es influenciada por posibles padres
 esth = HillClimbSearch(data=df_ent)
 
-modelo_k2 = esth.estimate(fixed_edges=edges_fijos, scoring_method=scoring_method,max_indegree=4,max_iter=int(1e4)) 
-
+modelo_k2 = esth.estimate(fixed_edges=edges_fijos, scoring_method=scoring_method,
+                          max_indegree=5, black_list=black_list) 
+modelo_k2=esth.estimate()
 #max indegree es el numero de padres maximosn max_inter es el numero de pasos a iterar el Hillclimb
 modelo_k2 = BayesianNetwork(modelo_k2)
 modelo_k2.fit(data=df_ent, estimator = BayesianEstimator)
@@ -143,7 +144,8 @@ print("BIC Score","\n",puntajeBIC,"\n")
 print("#----------------Modelo Hillclimb con BIC score------------------#")
 scoring_method = BicScore(data=df_ent)  #Que tanto una variable es influenciada por posibles padres
 esth = HillClimbSearch(data=df_ent)
-modelo_BIC = esth.estimate(fixed_edges=edges_fijos, scoring_method=scoring_method, max_indegree=4, max_iter=int(1e4)) #max indegree es el numero de padres maximosn max_inter es el numero de pasos a iterar el Hillclimb
+modelo_BIC = esth.estimate(fixed_edges=edges_fijos,
+                           scoring_method=scoring_method, max_indegree=5,black_list=black_list) #max indegree es el numero de padres maximosn max_inter es el numero de pasos a iterar el Hillclimb
 modelo_BIC = BayesianNetwork(modelo_BIC)
 modelo_BIC.fit(data=df_ent, estimator = BayesianEstimator)
 modelo_BIC.check_model()
