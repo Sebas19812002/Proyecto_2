@@ -8,22 +8,22 @@ def Conexion_DB_():
     import os
     from dotenv import load_dotenv
     # path to env file
-    env_path='informacion.env'
+    env_path='Informacion.env'
     # load env 
     load_dotenv(dotenv_path=env_path)
     # extract env variables
-    USER=os.getenv('DUSER')
-    PASSWORD=os.getenv('DPASSWORD')
-    HOST=os.getenv('DHOST')
-    PORT=os.getenv('DPORT')
-    DBNAME=os.getenv('DDBNAME')
+    DBUSER=os.getenv('DBUSER')
+    DBPASSWORD=os.getenv('DBPASSWORD')
+    DBHOST=os.getenv('DBHOST')
+    DBPORT=os.getenv('DBPORT')
+    DBNAME=os.getenv('DBNAME')
     #connect to DB
     engine = psycopg2.connect(
         dbname=DBNAME,
-        user=USER,
-        password=PASSWORD,
-        host=HOST,
-        port=PORT
+        user=DBUSER,
+        password=DBPASSWORD,
+        host=DBHOST,
+        port=DBPORT
     )
     
     cursor = engine.cursor()
